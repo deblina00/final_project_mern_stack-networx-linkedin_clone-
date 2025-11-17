@@ -1,0 +1,56 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar') %>
+
+<div class="main-content">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Comments</h3>
+
+    <form class="d-flex" method="GET" action="/comments">
+      <input class="form-control me-2" name="q" value="<%= q %>" placeholder="Search comments" />
+      <button class="btn btn-primary">Search</button>
+    </form>
+  </div>
+
+  <div class="card shadow p-3">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Comment</th>
+          <th>Post</th>
+          <th>At</th>
+          <th class="text-end">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% comments.forEach(c => { %>
+          <tr id="comment-<%= c._id %>">
+            <td><%= c.user ? c.user.f_name : '—' %></td>
+            <td><%= c.comment %></td>
+            <td><%= c.post ? c.post._id : '—' %></td>
+            <td><%= new Date(c.createdAt).toLocaleString() %></td>
+            <td class="text-end">
+              <!-- route is DELETE /comments/remove/:id -->
+              <button class="btn btn-sm btn-danger" onclick="openDeleteModal({ url: '/comments/remove/<%= c._id %>', rowId: 'comment-<%= c._id %>', text: 'Remove this comment? This will also send an email to the user.', showReason: true })">
+                Remove
+              </button>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <nav class="mt-3">
+    <ul class="pagination">
+      <% for(let i=1;i<=pages;i++) { %>
+        <li class="page-item <%= i===page ? 'active' : '' %>">
+          <a class="page-link" href="/comments?page=<%= i %>&q=<%= q %>"><%= i %></a>
+        </li>
+      <% } %>
+    </ul>
+  </nav>
+</div>
+
+<%- include('partials/footer') %>

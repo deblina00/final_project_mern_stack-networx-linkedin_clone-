@@ -1,0 +1,58 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar') %>
+
+<div class="main-content">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Notifications</h3>
+  </div>
+
+  <div class="card shadow p-3">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>From</th>
+          <th>To</th>
+          <th>Content</th>
+          <th>Type</th>
+          <th>Read</th>
+          <th class="text-end">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% notifications.forEach(n => { %>
+          <tr id="notification-<%= n._id %>">
+            <td><%= n.sender ? n.sender.f_name : '—' %></td>
+            <td><%= n.receiver ? n.receiver.f_name : '—' %></td>
+            <td style="max-width:350px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"><%= n.content %></td>
+            <td><%= n.type %></td>
+            <td data-read-cell><%= n.isRead ? 'Yes' : 'No' %></td>
+            <td class="text-end">
+              <% if (!n.isRead) { %>
+                <button class="btn btn-sm btn-primary me-2" onclick="markRead('/notifications/read/<%= n._id %>', 'notification-<%= n._id %>')">
+                  Mark Read
+                </button>
+              <% } %>
+
+              <button class="btn btn-sm btn-danger" onclick="openDeleteModal({ url: '/notifications/<%= n._id %>', rowId: 'notification-<%= n._id %>' })">
+                Delete
+              </button>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <nav class="mt-3">
+    <ul class="pagination">
+      <% for(let i=1;i<=pages;i++) { %>
+        <li class="page-item <%= i===page ? 'active' : '' %>">
+          <a class="page-link" href="/notifications?page=<%= i %>&q=<%= q %>"><%= i %></a>
+        </li>
+      <% } %>
+    </ul>
+  </nav>
+</div>
+
+<%- include('partials/footer') %>

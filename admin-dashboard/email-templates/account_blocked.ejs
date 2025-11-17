@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: Arial; background:#f4f4f4; padding:20px; }
+    .box { background:white; padding:30px; border-radius:8px; }
+    .title { color:#0a66c2; font-size:22px; font-weight:bold; }
+    .msg { font-size:16px; margin-top:15px; }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <div class="title">Your Networx Account Has Been Temporarily Restricted</div>
+
+  <p class="msg">Hi <%= fullName %>,</p>
+
+  <p class="msg">
+    Your account has been restricted due to violation of our community policies.
+    Our team reviewed an activity that doesn't comply with our guidelines.
+  </p>
+
+  <p class="msg"><strong>Reason: </strong><%= reason %></p>
+
+  <p class="msg">
+    If you believe this was a mistake, reply to this email for further assistance.
+  </p>
+
+  <p class="msg">– Networx Support Team</p>
+</div>
+
+</body>
+</html>

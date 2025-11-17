@@ -1,0 +1,107 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar') %>
+
+<div class="main-content">
+  <h2 class="fw-bold mb-4">Dashboard</h2>
+
+  <div class="row g-4">
+
+    <!-- USERS -->
+    <div class="col-md-3">
+      <div class="card shadow-sm p-3">
+        <h6 class="text-muted">Users</h6>
+        <div class="d-flex justify-content-between align-items-center">
+          <h3><%= stats.users %></h3>
+
+          <% if (stats.usersChange >= 0) { %>
+            <span class="text-success fw-bold">
+              <i class="bi bi-graph-up-arrow"></i> +<%= stats.usersChange %>%
+            </span>
+          <% } else { %>
+            <span class="text-danger fw-bold">
+              <i class="bi bi-graph-down-arrow"></i> <%= stats.usersChange %>%
+            </span>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <!-- POSTS -->
+    <div class="col-md-3">
+      <div class="card shadow-sm p-3">
+        <h6 class="text-muted">Posts</h6>
+        <div class="d-flex justify-content-between align-items-center">
+          <h3><%= stats.posts %></h3>
+
+          <% if (stats.postsChange >= 0) { %>
+            <span class="text-success fw-bold">+<%= stats.postsChange %>%</span>
+          <% } else { %>
+            <span class="text-danger fw-bold"><%= stats.postsChange %>%</span>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMMENTS -->
+    <div class="col-md-3">
+      <div class="card shadow-sm p-3">
+        <h6 class="text-muted">Comments</h6>
+        <div class="d-flex justify-content-between align-items-center">
+          <h3><%= stats.comments %></h3>
+
+          <% if (stats.commentsChange >= 0) { %>
+            <span class="text-success fw-bold">+<%= stats.commentsChange %>%</span>
+          <% } else { %>
+            <span class="text-danger fw-bold"><%= stats.commentsChange %>%</span>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <!-- MESSAGES -->
+    <div class="col-md-3">
+      <div class="card shadow-sm p-3">
+        <h6 class="text-muted">Messages</h6>
+        <div class="d-flex justify-content-between align-items-center">
+          <h3><%= stats.messages %></h3>
+
+          <% if (stats.messagesChange >= 0) { %>
+            <span class="text-success fw-bold">+<%= stats.messagesChange %>%</span>
+          <% } else { %>
+            <span class="text-danger fw-bold"><%= stats.messagesChange %>%</span>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Chart -->
+  <div class="mt-5">
+    <canvas id="activityChart" height="90"></canvas>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('activityChart');
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+      datasets: [{
+        label: 'Posts this week',
+        data: [12,19,3,5,2,3,9],
+        borderWidth: 2,
+        borderColor: '#0d6efd',
+        backgroundColor: 'rgba(13,110,253,0.15)',
+        tension: .3
+      }]
+    },
+    options: { responsive:true }
+  });
+</script>
+
+<%- include('partials/footer') %>

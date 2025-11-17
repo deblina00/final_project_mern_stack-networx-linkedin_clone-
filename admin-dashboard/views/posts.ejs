@@ -1,0 +1,73 @@
+<%- include('partials/header') %>
+<%- include('partials/sidebar') %>
+
+<div class="main-content">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Posts</h3>
+
+    <form class="d-flex" method="GET" action="/posts">
+      <input class="form-control me-2" name="q" value="<%= q %>" placeholder="Search posts" />
+      <button class="btn btn-primary">Search</button>
+    </form>
+  </div>
+
+  <div class="card shadow p-3">
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Description</th>
+          <th>Comments</th>
+          <th>Likes</th>
+          <th class="text-end">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% posts.forEach(p => { %>
+          <tr id="post-<%= p._id %>">
+            <td>
+              <strong><%= p.user ? p.user.f_name : '—' %></strong><br>
+              <small><%= p.user ? p.user.email : '' %></small>
+            </td>
+
+            <td style="max-width:350px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+              <%= p.desc || '' %>
+            </td>
+
+            <td><%= p.comments %></td>
+            <td><%= p.likes ? p.likes.length : 0 %></td>
+
+            <td class="text-end">
+              <% const blocked = !!p.isBlocked; %>
+              <button
+                id="post-block-<%= p._id %>"
+                class="btn btn-sm <%= blocked ? 'btn-warning' : 'btn-success' %> me-2"
+                data-blocked="<%= blocked %>"
+                onclick="toggleBlock('post','<%= p._id %>', this, true)"
+              >
+                <%= blocked ? 'Unblock' : 'Block' %>
+              </button>
+
+              <button class="btn btn-sm btn-danger" onclick="openDeleteModal({ url: '/posts/<%= p._id %>', rowId: 'post-<%= p._id %>' })">
+                Delete
+              </button>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <nav class="mt-3">
+    <ul class="pagination">
+      <% for(let i=1;i<=pages;i++) { %>
+        <li class="page-item <%= i===page ? 'active' : '' %>">
+          <a class="page-link" href="/posts?page=<%= i %>&q=<%= q %>"><%= i %></a>
+        </li>
+      <% } %>
+    </ul>
+  </nav>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,152 @@
+<!-- views/partials/footer.ejs -->
+<!-- Delete confirmation modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeleteLabel">Confirm delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="confirmDeleteText">Are you sure you want to delete this item? This action cannot be undone.</p>
+
+        <!-- optional reason input for deletions that need a reason -->
+        <div id="confirmReasonWrap" class="mb-0" style="display:none;">
+          <label class="form-label">Reason (optional)</label>
+          <input id="confirmReason" class="form-control" placeholder="Enter reason (will be sent in request body when supported)"/>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="confirmCancelBtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button id="confirmDeleteBtn" type="button" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/admin.js"></script>
+
+<script>
+  // Setup modal element
+  const confirmModalEl = document.getElementById('confirmDeleteModal')
+  const confirmModal = new bootstrap.Modal(confirmModalEl)
+
+  // store current delete params
+  let _deleteUrl = null
+  let _deleteRowId = null
+  let _deleteMethod = 'DELETE' // default method
+  let _deleteIncludeReason = false
+
+  // open delete confirmation modal
+  // options: { url, rowId, method = 'DELETE', showReason = false, text = '' }
+  function openDeleteModal(options) {
+    _deleteUrl = options.url
+    _deleteRowId = options.rowId
+    _deleteMethod = options.method || 'DELETE'
+    _deleteIncludeReason = !!options.showReason
+
+    document.getElementById('confirmDeleteText').innerText = options.text || 'Are you sure you want to delete this item? This action cannot be undone.'
+    document.getElementById('confirmReasonWrap').style.display = _deleteIncludeReason ? 'block' : 'none'
+    document.getElementById('confirmReason').value = ''
+
+    confirmModal.show()
+  }
+
+  // handle confirm
+  document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
+    if (!_deleteUrl) return
+    const payload = {}
+    if (_deleteIncludeReason) {
+      payload.reason = document.getElementById('confirmReason').value || ''
+    }
+
+    try {
+      const res = await fetch(_deleteUrl, {
+        method: _deleteMethod,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: (_deleteMethod === 'DELETE' || _deleteMethod === 'GET') ? null : JSON.stringify(payload)
+      })
+
+      const data = await res.json().catch(() => ({}))
+
+      if (res.ok && data.success) {
+        if (_deleteRowId) {
+          const row = document.getElementById(_deleteRowId)
+          if (row) row.remove()
+        }
+        confirmModal.hide()
+      } else {
+        alert(data.error || data.message || 'Action failed')
+      }
+    } catch (err) {
+      alert('Error: ' + err.message)
+    }
+  })
+
+  // Toggle block/unblock for user/post
+  async function toggleBlock(type, id, buttonEl, reasonRequired = false) {
+    // type = 'user' | 'post'
+    const isBlocked = buttonEl.dataset.blocked === 'true'
+    const url = isBlocked ? `/${type}s/unblock/${id}` : `/${type}s/block/${id}`
+
+    let body = {}
+    if (!isBlocked && reasonRequired) {
+      const reason = prompt('Reason for blocking (optional):')
+      if (reason !== null) body.reason = reason
+    }
+
+    try {
+      const res = await fetch(url, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: Object.keys(body).length ? JSON.stringify(body) : undefined
+      })
+      const data = await res.json().catch(()=>({}))
+
+      if (res.ok && data.success) {
+        // flip state
+        const nowBlocked = !isBlocked
+        buttonEl.dataset.blocked = nowBlocked ? 'true' : 'false'
+        if (nowBlocked) {
+          buttonEl.classList.remove('btn-success')
+          buttonEl.classList.add('btn-warning')
+          buttonEl.innerText = 'Unblock'
+        } else {
+          buttonEl.classList.remove('btn-warning')
+          buttonEl.classList.add('btn-success')
+          buttonEl.innerText = 'Block'
+        }
+      } else {
+        alert(data.error || 'Failed to change block state.')
+      }
+    } catch (err) {
+      alert('Error: ' + err.message)
+    }
+  }
+
+  // mark notification read
+  async function markRead(url, rowId) {
+    try {
+      const res = await fetch(url, { method: 'PUT' })
+      const data = await res.json().catch(()=>({}))
+      if (res.ok && data.success) {
+        const row = document.getElementById(rowId)
+        if (row) {
+          // set read column to yes
+          const readCell = row.querySelector('td[data-read-cell]')
+          if (readCell) readCell.innerText = 'Yes'
+        }
+      } else {
+        alert(data.error || 'Failed')
+      }
+    } catch (err) {
+      alert('Error: ' + err.message)
+    }
+  }
+</script>
+</body>
+</html>
