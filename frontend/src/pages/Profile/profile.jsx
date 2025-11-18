@@ -208,7 +208,7 @@ const Profile = () => {
 
   const copyToClipboard = async () => {
     try {
-      let string = `http://localhost:5173/profile/${id}`;
+      let string = `${import.meta.env.VITE_FRONTEND_URL}/profile/${id}`;
       await navigator.clipboard.writeText(string);
       toast.success("Copied to clipboard");
     } catch (err) {

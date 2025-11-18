@@ -55,7 +55,7 @@ const Notification = () => {
       </div>
 
       {/* middle */}
-      <div className="w-full py-5 sm:w-[50%] h-[100vh] overflow-y-auto">
+      <div className="w-full py-5 sm:w-[50%] h-screen overflow-y-auto">
         <Card padding={0}>
           <div className="w-full">
             {notifications.map((item, index) => (

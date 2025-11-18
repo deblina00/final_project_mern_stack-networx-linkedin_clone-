@@ -258,7 +258,7 @@ const Messages = () => {
                           {msg.picture && (
                             <img
                               src={msg.picture}
-                              className="w-[240px] h-[180px] rounded-md mt-2"
+                              className="w-60 h-[180px] rounded-md mt-2"
                             />
                           )}
                         </div>

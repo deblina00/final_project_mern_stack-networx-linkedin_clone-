@@ -9,13 +9,13 @@ const LandingPage = (props) => {
           Welcome to your professional community
         </div>
 
-        <div className="flex mx-auto mt-[20px] py-2 px-2  items-center w-[70%] justify-center text-white cursor-pointer">
+        <div className="flex mx-auto mt-5 py-2 px-2  items-center w-[70%] justify-center text-white cursor-pointer">
           <GoogleLoginComp changeLoginValue={props.changeLoginValue} />
         </div>
 
         <Link
           to={"/login"}
-          className="flex mx-auto mt-[20px] py-2 px-2 bg-white gap-2 rounded-3xl items-center w-[70%] justify-center text-black hover:bg-gray-100 border-2 cursor-pointer"
+          className="flex mx-auto mt-5 py-2 px-2 bg-white gap-2 rounded-3xl items-center w-[70%] justify-center text-black hover:bg-gray-100 border-2 cursor-pointer"
         >
           Sign in with email
         </Link>
