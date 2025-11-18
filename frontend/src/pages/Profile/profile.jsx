@@ -369,15 +369,6 @@ const Profile = () => {
               {/* Parent div for scrollable activities  */}
               <div className="overflow-x-auto my-2 flex gap-4 pb-3 no-scrollbar">
                 {postData.map((item) => (
-                  // <div
-                  //   key={item._id}
-                  //   onClick={() =>
-                  //     navigate(`/profile/${id}/activities/${item?._id}`)
-                  //   }
-                  //   className="cursor-pointer shrink-0 w-[350px] h-[560px]"
-                  // >
-                  //   <Post profile={1} item={item} personalData={ownData} />
-                  // </div>
                   <div
                     key={item._id}
                     onClick={() =>

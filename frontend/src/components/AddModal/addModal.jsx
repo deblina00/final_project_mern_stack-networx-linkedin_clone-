@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import ImageIcon from "@mui/icons-material/Image";
 import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
-import NewspaperIcon from "@mui/icons-material/Newspaper";
 import api from "../../lib/api";
 import axios from "axios";
 import { toast } from "react-toastify";

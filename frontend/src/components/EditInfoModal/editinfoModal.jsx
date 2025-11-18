@@ -27,7 +27,7 @@ const EditinfoModal = ({ handleEditFunc, selfData }) => {
             onChangeHandle(e, "f_name");
           }}
           type="text"
-          className="p-2 mt-1 w-full border-1 rounded-md"
+          className="p-2 mt-1 w-full border rounded-md"
           placeholder="Enter Full Name"
         />
       </div>
@@ -40,7 +40,7 @@ const EditinfoModal = ({ handleEditFunc, selfData }) => {
           onChange={(e) => {
             onChangeHandle(e, "headline");
           }}
-          className="p-2 mt-1 w-full border-1 rounded-md"
+          className="p-2 mt-1 w-full border rounded-md"
           cols={10}
           rows={3}
         ></textarea>
@@ -54,7 +54,7 @@ const EditinfoModal = ({ handleEditFunc, selfData }) => {
           onChange={(e) => {
             onChangeHandle(e, "curr_company");
           }}
-          className="p-2 mt-1 w-full border-1 rounded-md"
+          className="p-2 mt-1 w-full border rounded-md"
           placeholder="Enter Current Company"
         />
       </div>
@@ -68,7 +68,7 @@ const EditinfoModal = ({ handleEditFunc, selfData }) => {
           onChange={(e) => {
             onChangeHandle(e, "curr_location");
           }}
-          className="p-2 mt-1 w-full border-1 rounded-md"
+          className="p-2 mt-1 w-full border rounded-md"
           placeholder="Enter Current Location"
         />
       </div>

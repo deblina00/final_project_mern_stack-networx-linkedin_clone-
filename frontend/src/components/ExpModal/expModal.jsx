@@ -46,7 +46,7 @@ const ExpModal = ({ handleEditFunc, selfData, updateExp, setUpdateExp }) => {
           type="text"
           value={data.designation}
           onChange={(e) => onChangeHandle(e, "designation")}
-          className="p-2 mt-1 w-full border-1 rounded-md"
+          className="p-2 mt-1 w-full border rounded-md"
           placeholder="Enter Role"
         />
       </div>
@@ -58,7 +58,7 @@ const ExpModal = ({ handleEditFunc, selfData, updateExp, setUpdateExp }) => {
           type="text"
           value={data.company_name}
           onChange={(e) => onChangeHandle(e, "company_name")}
-          className="p-2 mt-1 w-full border-1 rounded-md"
+          className="p-2 mt-1 w-full border rounded-md"
           placeholder="Enter Company Name"
         />
       </div>
@@ -70,7 +70,7 @@ const ExpModal = ({ handleEditFunc, selfData, updateExp, setUpdateExp }) => {
           type="text"
           value={data.duration}
           onChange={(e) => onChangeHandle(e, "duration")}
-          className="p-2 mt-1 w-full border-1 rounded-md"
+          className="p-2 mt-1 w-full border rounded-md"
           placeholder="Enter Duration"
         />
       </div>
@@ -82,7 +82,7 @@ const ExpModal = ({ handleEditFunc, selfData, updateExp, setUpdateExp }) => {
           type="text"
           value={data.location}
           onChange={(e) => onChangeHandle(e, "location")}
-          className="p-2 mt-1 w-full border-1 rounded-md"
+          className="p-2 mt-1 w-full border rounded-md"
           placeholder="Enter Place"
         />
       </div>

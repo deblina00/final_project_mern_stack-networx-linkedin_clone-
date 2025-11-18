@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 
 const Navbar1 = () => {
   return (
-    <nav className="w-full bg-gray-100 md:px-[100px] px-[20px] flex justify-between py-4 box-border">
+    <nav className="w-full bg-gray-100 md:px-[100px] px-5 flex justify-between py-4 box-border">
       {/* 🔹 Logo Section */}
       <Link to={"/"} className="flex justify-between">
-        <h3 className="text-2xl font-bold tracking-tight">Networx</h3>
+        <h3 className="text-2xl text-blue-700 font-bold tracking-tight">
+          Networx
+        </h3>
       </Link>
 
       {/* 🔹 Auth Buttons */}
@@ -19,7 +21,7 @@ const Navbar1 = () => {
         </Link>
         <Link
           to={"/login"}
-          className="px-4 py-2 box-border border-1 text-blue-800 border-blue-800 rounded-3xl text-xl hover:bg-blue-50 cursor-pointer"
+          className="px-4 py-2 box-border border text-blue-800 border-blue-800 rounded-3xl text-xl hover:bg-blue-50 cursor-pointer"
         >
           Sign in
         </Link>

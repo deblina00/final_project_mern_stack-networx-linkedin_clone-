@@ -64,7 +64,7 @@ const Navbar2 = () => {
     <div className="bg-white h-14 flex justify-between py-1 px-5 xl:px-50 fixed top-0 w-full z-1000">
       <div className="flex gap-2 items-center">
         <Link to="/feeds" className="flex items-center gap-2 cursor-pointer">
-          <h3 className="text-2xl font-bold tracking-tight">Networx</h3>
+          <h3 className="text-2xl text-blue-700 font-bold tracking-tight">Networx</h3>
         </Link>
 
         <div className="relative">

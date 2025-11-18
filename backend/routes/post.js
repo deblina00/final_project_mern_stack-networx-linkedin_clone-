@@ -44,7 +44,7 @@ const {
  *               videoLink:
  *                 type: string
  *                 example: "https://example.com/video.mp4"
- *                 article:
+ *               article:
  *                 type: string
  *                 example: "https://example.com/article.pdf"
  *     responses:
@@ -53,6 +53,7 @@ const {
  *       400:
  *         description: Validation failed
  */
+
 router.post(
   "/",
   Authentication,

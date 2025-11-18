@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import Advertisement from "../../components/Advertisement/advertisement";
 import Card from "../../components/Card/card";
 import Post from "../../components/Post/post";
-import axios from "axios";
+import api from "../../lib/api";
 
 const AllActivities = () => {
   const { id } = useParams();
@@ -13,22 +13,18 @@ const AllActivities = () => {
   const [ownData, setOwnData] = useState(null);
 
   const fetchDataOnLoad = async () => {
-    await axios
-      .get(`http://localhost:4000/api/post/getAllPostForUser/${id}`)
-      .then((res) => {
-        console.log(res);
-        setPosts(res.data.posts);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(err?.response?.data?.error);
-      });
+    try {
+      const res = await api.get(`/post/getAllPostForUser/${id}`);
+      setPosts(res.data.posts);
+    } catch (err) {
+      console.log(err);
+      alert(err?.response?.data?.error || "Something went wrong.");
+    }
   };
 
   useEffect(() => {
     fetchDataOnLoad();
-
-    let userData = localStorage.getItem("userInfo");
+    const userData = localStorage.getItem("userInfo");
     setOwnData(userData ? JSON.parse(userData) : null);
   }, [id]);
 
@@ -46,7 +42,7 @@ const AllActivities = () => {
         <div>
           <Card padding={1}>
             <div className="text-xl">All Activity</div>
-            <div className="cursor-pointer w-fit p-2 border-1 rounded-4xl bg-green-800 my-2 text-white font-semibold">
+            <div className="cursor-pointer w-fit p-2 border rounded-4xl bg-green-800 my-2 text-white font-semibold">
               Posts
             </div>
 

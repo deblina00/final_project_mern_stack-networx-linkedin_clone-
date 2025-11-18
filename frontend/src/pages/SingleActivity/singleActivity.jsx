@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ProfileCard from "../../components/ProfileCard/profileCard";
-import Card from "../../components/Card/card";
 import Post from "../../components/Post/post";
 import Advertisement from "../../components/Advertisement/advertisement";
-import axios from "axios";
+import api from "../../lib/api";
 import { useParams } from "react-router-dom";
 
 const SingleActivity = () => {
@@ -14,24 +13,21 @@ const SingleActivity = () => {
   const [ownData, setOwnData] = useState(null);
 
   const fetchDataOnLoad = async () => {
-    await axios
-      .get(`http://localhost:4000/api/post/getPostById/${postId}`)
-      .then((res) => {
-        console.log(res);
-        setPost(res.data.post);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(err?.response?.data?.error);
-      });
+    try {
+      const res = await api.get(`/post/getPostById/${postId}`);
+      setPost(res.data.post);
+    } catch (err) {
+      console.log(err);
+      alert(err?.response?.data?.error || "Something went wrong.");
+    }
   };
 
   useEffect(() => {
     fetchDataOnLoad();
-    let ownData = localStorage.getItem("userInfo");
-    setOwnData(ownData ? JSON.parse(ownData) : null);
-  }, []);
-
+    const userInfo = localStorage.getItem("userInfo");
+    setOwnData(userInfo ? JSON.parse(userInfo) : null);
+  }, [postId]);
+  
   return (
     <div className="px-5 xl:px-50 py-9 flex gap-5 w-full mt-5 bg-gray-100">
       {/* left side */}
