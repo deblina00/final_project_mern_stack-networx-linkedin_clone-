@@ -3,7 +3,8 @@
 async function toggleBlock(type, id, btnEl, showAlert = true) {
   const blocked = btnEl.dataset.blocked === "true";
   const action = blocked ? "unblock" : "block";
-  const url = `/${type}s/${id}/${action}`; // e.g., /users/:id/block or /posts/:id/block
+  const url = `/${type}s/${action}/${id}`; // match route
+  // e.g., /users/:id/block or /posts/:id/block
 
   try {
     const res = await fetch(url, {
