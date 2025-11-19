@@ -1,4 +1,31 @@
-// public/js/admin.js
+// /public/js/admin.js
+
+async function toggleBlock(type, id, btnEl, showAlert = true) {
+  const blocked = btnEl.dataset.blocked === "true";
+  const action = blocked ? "unblock" : "block";
+  const url = `/${type}s/${id}/${action}`; // e.g., /users/:id/block or /posts/:id/block
+
+  try {
+    const res = await fetch(url, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await res.json();
+
+    if (res.ok && data.success) {
+      btnEl.dataset.blocked = (!blocked).toString();
+      btnEl.classList.toggle("btn-success", blocked);
+      btnEl.classList.toggle("btn-warning", !blocked);
+      btnEl.textContent = blocked ? "Block" : "Unblock";
+
+      if (showAlert) alert(data.message || `${type} ${action}ed successfully`);
+    } else {
+      alert(data.error || data.message || "Action failed");
+    }
+  } catch (err) {
+    alert("Error: " + err.message);
+  }
+}
 
 async function deleteItem(url, rowId) {
   if (!confirm("Are you sure? This action cannot be undone.")) return;
