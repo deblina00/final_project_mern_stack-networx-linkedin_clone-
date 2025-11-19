@@ -29,9 +29,12 @@
             <td data-read-cell><%= n.isRead ? 'Yes' : 'No' %></td>
             <td class="text-end">
               <% if (!n.isRead) { %>
-                <button class="btn btn-sm btn-primary me-2" onclick="markRead('/notifications/read/<%= n._id %>', 'notification-<%= n._id %>')">
-                  Mark Read
-                </button>
+                <button 
+              class="btn btn-sm btn-primary me-2"
+              onclick="markRead('/notifications/read/<%= n._id %>', 'notification-<%= n._id %>', this)"
+            >
+              Mark Read
+            </button>
               <% } %>
 
               <button class="btn btn-sm btn-danger" onclick="openDeleteModal({ url: '/notifications/<%= n._id %>', rowId: 'notification-<%= n._id %>' })">

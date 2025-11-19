@@ -50,14 +50,17 @@ const Feeds = () => {
           <ProfileCard data={personalData} />
         </div>
         <div className="w-full my-5">
-          <Card padding={1}>
-            <div className=" w-full flex justify-between">
-              <div>Profile Viewers</div>
-              <div className="text-blue-900">23</div>
+          <Card
+            padding={2}
+            className="rounded-2xl shadow-lg border border-purple-100"
+          >
+            <div className="flex justify-between text-gray-700 font-medium">
+              <span>Profile Viewers</span>
+              <span className="text-purple-700">23</span>
             </div>
-            <div className=" w-full flex justify-between">
-              <div>Post Impressions</div>
-              <div className="text-blue-900">90</div>
+            <div className="flex justify-between text-gray-700 font-medium mt-2">
+              <span>Post Impressions</span>
+              <span className="text-purple-700">90</span>
             </div>
           </Card>
         </div>
@@ -67,49 +70,44 @@ const Feeds = () => {
       <div className="w-full py-5 sm:w-[50%] ">
         {/* Post section */}
         <div>
-          <Card padding={1}>
+          <Card
+            padding={2}
+            className="rounded-2xl shadow-lg border border-purple-100"
+          >
             <div className="flex gap-2 items-center">
               <img
-                className="rounded-4xl w-12 h-12 border-2 border-white cursor-pointer"
+                className="rounded-full w-12 h-12 border-2 border-white shadow-sm cursor-pointer"
                 src={personalData?.profilePic}
               />
               <div
                 onClick={() => handleOpenPostModal("post")}
-                className="w-full border py-3 px-3 rounded-3xl cursor-pointer hover:bg-gray-100"
+                className="w-full border border-purple-200 py-3 px-4 rounded-3xl cursor-pointer hover:shadow-md hover:border-purple-300 transition-all text-gray-700"
               >
                 Start a post...
               </div>
             </div>
 
-            <div className="w-full flex mt-3">
-              {/* VIDEO */}
-              <div
+            <div className="flex mt-3 text-gray-700">
+              <PostOption
+                icon={<SmartDisplayIcon sx={{ color: "green" }} />}
+                text="Video"
                 onClick={() => handleOpenPostModal("video")}
-                className="flex gap-2 p-2 cursor-pointer rounded-lg w-[33%] hover:bg-gray-100"
-              >
-                <SmartDisplayIcon sx={{ color: "green" }} /> Video
-              </div>
-
-              {/* PHOTO */}
-              <div
+              />
+              <PostOption
+                icon={<InsertPhotoIcon sx={{ color: "blue" }} />}
+                text="Photo"
                 onClick={() => handleOpenPostModal("photo")}
-                className="flex gap-2 p-2 cursor-pointer rounded-lg w-[33%] hover:bg-gray-100"
-              >
-                <InsertPhotoIcon sx={{ color: "blue" }} /> Photo
-              </div>
-
-              {/* ARTICLE */}
-              <div
+              />
+              <PostOption
+                icon={<NewspaperIcon sx={{ color: "brown" }} />}
+                text="Article"
                 onClick={() => handleOpenPostModal("article")}
-                className="flex gap-2 p-2 cursor-pointer rounded-lg w-[33%] hover:bg-gray-100"
-              >
-                <NewspaperIcon sx={{ color: "brown" }} /> Write article
-              </div>
+              />
             </div>
           </Card>
         </div>
 
-        <div className="border-b border-gray-300 w-full my-5" />
+        <div className="border-b border-purple-200 w-full my-5" />
 
         <div className="w-full flex flex-col gap-5">
           {post.map((item, index) => (
@@ -121,21 +119,30 @@ const Feeds = () => {
       {/* right side */}
       <div className="w-[26%] py-5 hidden md:block">
         <div>
-          <Card padding={1}>
-            <div className="text-xl">Networx News</div>
-            <div className="text-gray-300">Top Stories</div>
+          <Card
+            padding={2}
+            className="rounded-2xl shadow-lg border border-purple-100"
+          >
+            <div className="text-xl text-purple-800 font-semibold">
+              Networx News
+            </div>
+            <div className="text-gray-400 text-sm mb-3">Top Stories</div>
             <div className="my-1">
-              <div className="text-md">Buffet to remain Barkshir chair</div>
+              <div className="text-md font-medium">
+                Buffet to remain Barkshir chair
+              </div>
               <div className="text-xs text-gray-400">2h ago</div>
             </div>
             <div className="my-1">
-              <div className="text-md">Foreign investments surge again</div>
+              <div className="text-md font-medium">
+                Foreign investments surge again
+              </div>
               <div className="text-xs text-gray-400">3h ago</div>
             </div>
           </Card>
         </div>
 
-        <div className="my-5 sticky top-19">
+        <div className="my-5 sticky top-20">
           <Advertisement />
         </div>
       </div>
@@ -151,5 +158,15 @@ const Feeds = () => {
     </div>
   );
 };
+
+// ✅ Post Option Button
+const PostOption = ({ icon, text, onClick }) => (
+  <div
+    onClick={onClick}
+    className="flex gap-2 p-2 flex-1 cursor-pointer rounded-lg hover:bg-purple-50 transition-all items-center justify-center font-medium text-gray-800"
+  >
+    {icon} {text}
+  </div>
+);
 
 export default Feeds;

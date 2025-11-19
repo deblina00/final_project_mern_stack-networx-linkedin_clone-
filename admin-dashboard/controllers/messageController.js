@@ -29,7 +29,6 @@ exports.list = async (req, res) => {
   });
 };
 
-// messageController.js
 exports.delete = async (req, res) => {
   if (!req.session.admin)
     return res.status(401).json({ error: "Unauthorized" });

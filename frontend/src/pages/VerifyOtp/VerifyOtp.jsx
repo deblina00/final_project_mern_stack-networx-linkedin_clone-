@@ -31,33 +31,35 @@ export default function VerifyOtpPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-md bg-white p-8 rounded shadow">
-        <h2 className="text-xl font-semibold">Verify your email</h2>
+    <div className="w-full min-h-screen flex items-center justify-center bg-[#f3f2ef]">
+      <div className="w-[90%] md:w-[28%] max-w-md bg-white p-8 shadow-lg rounded-lg ">
+        <div className="text-3xl font-semibold text-gray-900 mb-6 text-center">
+          Verify your email
+        </div>
 
         <form onSubmit={submit} className="mt-4 space-y-3">
           <input
-            className="w-full border p-2 rounded"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-base focus:border-purple-500 focus:outline-none"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
 
           <input
-            className="w-full border p-2 rounded"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-base focus:border-purple-500 focus:outline-none"
             placeholder="Enter 6-digit OTP"
             value={otp}
             onChange={(e) => setOtp(e.target.value)}
           />
 
-          <button className="w-full bg-blue-600 text-white py-2 rounded">
+          <button className="w-full bg-linear-to-r from-purple-600 to-purple-900 text-white font-medium shadow-md hover:shadow-lg hover:scale-[1.03] transition-all duration-200 rounded-full text-lg py-2.5">
             Verify OTP
           </button>
         </form>
 
-        <div className="mt-3 text-sm">
+        <div className="mt-4 text-sm text-center">
           Didn’t receive it?{" "}
-          <button onClick={resend} className="text-blue-600">
+          <button onClick={resend} className="text-blue-800 font-semibold">
             Resend OTP
           </button>
         </div>

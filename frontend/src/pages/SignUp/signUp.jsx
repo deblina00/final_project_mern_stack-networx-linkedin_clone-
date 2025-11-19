@@ -28,86 +28,94 @@ const SignUp = (props) => {
     }
 
     try {
-      const res = await api.post("/auth/register", registerField);
+      await api.post("/auth/register", registerField);
 
       toast.success("OTP sent! Please verify your email.");
-
-      navigate("/verify-otp", {
-        state: { email: registerField.email }, // SEND EMAIL FOR VERIFY PAGE
-      });
+      navigate("/verify-otp", { state: { email: registerField.email } });
     } catch (err) {
       toast.error(err?.response?.data?.error || "Registration failed");
     }
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center">
-      <div className="text-4xl mb-5">
+    <div className="w-full flex flex-col items-center justify-center bg-gray-50 min-h-screen px-4">
+      {/* Heading */}
+      <div className="text-4xl md:text-5xl font-semibold text-purple-700 mb-6 text-center">
         Make the most of your professional life
       </div>
 
-      <div className="w-[85%] md:w-[28%] shadow-xl rounded-sm box p-10">
+      {/* Signup Card */}
+      <div className="w-full max-w-md bg-white shadow-xl rounded-lg p-8 md:p-10">
         <div className="flex flex-col gap-4">
           <div>
-            <label>Email</label>
+            <label className="text-gray-600 font-medium">Email</label>
             <input
               value={registerField.email}
               onChange={(e) => handleInputField(e, "email")}
               type="text"
-              className="w-full text-xl border-2 rounded-lg px-5 py-1"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 text-base focus:border-purple-500 focus:outline-none"
               placeholder="Email"
             />
           </div>
 
           <div>
-            <label>Password</label>
+            <label className="text-gray-600 font-medium">Password</label>
             <input
               value={registerField.password}
               onChange={(e) => handleInputField(e, "password")}
               type="password"
-              className="w-full text-xl border-2 rounded-lg px-5 py-1"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 text-base focus:border-purple-500 focus:outline-none"
               placeholder="Password"
             />
           </div>
 
           <div>
-            <label>Full name</label>
+            <label className="text-gray-600 font-medium">Full Name</label>
             <input
               value={registerField.f_name}
               onChange={(e) => handleInputField(e, "f_name")}
               type="text"
-              className="w-full text-xl border-2 rounded-lg px-5 py-1"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 text-base focus:border-purple-500 focus:outline-none"
               placeholder="Full name"
             />
           </div>
 
           <div>
-            <label>Username</label>
+            <label className="text-gray-600 font-medium">Username</label>
             <input
               value={registerField.username}
               onChange={(e) => handleInputField(e, "username")}
               type="text"
-              className="w-full text-xl border-2 rounded-lg px-5 py-1"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 text-base focus:border-purple-500 focus:outline-none"
               placeholder="Username"
             />
           </div>
 
-          <div
+          {/* Register Button */}
+          <button
             onClick={handleRegister}
-            className="w-full hover:bg-blue-900 bg-blue-800 text-white py-3 px-4 rounded-xl text-center text-xl cursor-pointer my-2"
+            className="w-full bg-linear-to-r from-purple-600 to-purple-900 text-white font-medium shadow-md hover:shadow-lg hover:scale-[1.03] transition-all duration-200 rounded-full text-lg py-2.5"
           >
             Register
+          </button>
+          {/* Divider */}
+          <div className="flex items-center gap-3 my-4">
+            <div className="h-px bg-gray-300 flex-1"></div>
+            <span className="text-gray-500">or</span>
+            <div className="h-px bg-gray-300 flex-1"></div>
           </div>
-        </div>
 
-        <div className="my-5">
-          <GoogleLoginComp changeLoginValue={props.changeLoginValue} />
+          {/* Google Login */}
+          <div>
+            <GoogleLoginComp changeLoginValue={props.changeLoginValue} />
+          </div>
         </div>
       </div>
 
-      <div className="mt-4 mb-10">
-        Already on LinkedIn?{" "}
-        <Link to={"/login"} className="text-blue-800 cursor-pointer">
+      {/* Bottom link */}
+      <div className="mt-6 text-lg mb-10">
+        Already on Networx?{" "}
+        <Link to={"/login"} className="text-blue-800 font-semibold">
           Sign in
         </Link>
       </div>

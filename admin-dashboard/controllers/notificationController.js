@@ -5,15 +5,17 @@ exports.list = async (req, res) => {
   if (!req.session.admin) return res.redirect("/");
 
   const { q, page = 1, limit = 10 } = req.query;
-  const filter = q ? { notification: new RegExp(q, "i") } : {};
+  const filter = q ? { content: new RegExp(q, "i") } : {};
   const skip = (page - 1) * limit;
 
   const total = await Notification.countDocuments(filter);
 
-  const notifications = await Notification.find()
+  const notifications = await Notification.find(filter)
     .populate("sender receiver", "f_name email")
     .sort({ createdAt: -1 })
-    .limit(200);
+    .skip(skip)
+    .limit(parseInt(limit));
+
   res.render("notifications", {
     notifications,
     q: q || "",

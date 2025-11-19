@@ -11,13 +11,16 @@ const Advertisement = () => {
 
   return (
     <div className="sticky top-20">
-      <Card padding={0}>
+      <Card
+        padding={0}
+        className="rounded-2xl shadow-lg border border-purple-100 overflow-hidden"
+      >
         {/* Banner Section */}
         <div className="relative h-28">
           <img
             src="https://media.licdn.com/dms/image/v2/C5616AQH797ZatUkJ_w/profile-displaybackgroundimage-shrink_350_1400/profile-displaybackgroundimage-shrink_350_1400/0/1630965387365?e=1764806400&v=beta&t=D3eCW16qr_IlFAm4lTOoqtBykb0Zl2sa6aRUtucQNEg"
-            className="rounded-t-md w-full h-full object-cover"
             alt="Banner"
+            className="w-full h-full object-cover rounded-t-md"
           />
 
           {/* Profile Image */}
@@ -28,24 +31,23 @@ const Advertisement = () => {
                 "https://cdn-icons-png.flaticon.com/512/149/149071.png"
               }
               alt="Profile"
-              className="rounded-full border-2 h-16 w-16 border-white shadow-md object-cover cursor-pointer"
+              className="rounded-full border-2 border-white h-16 w-16 shadow-md object-cover cursor-pointer"
             />
           </div>
         </div>
 
         {/* Content Section */}
         <div className="px-5 mt-10 mb-5 text-center">
-          <p className="text-sm font-semibold">{userData?.f_name || "User"}</p>
-
-          <p className="text-sm mt-3 text-gray-700">
+          <p className="text-purple-800 font-semibold text-lg">
+            {userData?.f_name || "User"}
+          </p>
+          <p className="text-gray-600 text-sm mt-2">
             Get the latest jobs and industry news
           </p>
 
-          <div className="mt-3">
-            <button className="text-sm font-bold p-2 rounded-2xl bg-blue-800 text-white w-full cursor-pointer transition hover:bg-blue-900">
-              Explore
-            </button>
-          </div>
+          <button className="mt-4 w-full py-2 rounded-full bg-linear-to-r from-purple-600 to-purple-900 text-white font-medium shadow-md hover:shadow-lg hover:scale-[1.03] transition-all duration-200">
+            Explore
+          </button>
         </div>
       </Card>
     </div>

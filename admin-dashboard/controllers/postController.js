@@ -4,10 +4,13 @@ const sendEmail = require("../utils/sendEmail");
 
 exports.list = async (req, res) => {
   if (!req.session.admin) return res.redirect("/");
+
   const { q, page = 1, limit = 10 } = req.query;
   const filter = q ? { desc: new RegExp(q, "i") } : {};
   const skip = (page - 1) * limit;
+
   const total = await Post.countDocuments(filter);
+  
   const posts = await Post.find(filter)
     .populate("user", "f_name email")
     .sort({ createdAt: -1 })

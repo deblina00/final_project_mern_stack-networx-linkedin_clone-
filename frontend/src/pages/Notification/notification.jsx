@@ -26,7 +26,6 @@ const Notification = () => {
         notificationId: item._id,
       });
 
-      // Redirect based on notification type
       if (item.type === "comment") {
         navigate(`/profile/${ownData?._id}/activities/${item.postId}`);
       } else {
@@ -39,48 +38,68 @@ const Notification = () => {
   };
 
   useEffect(() => {
-    const userData = localStorage.getItem("userInfo");
-    setOwnData(userData ? JSON.parse(userData) : null);
+    const stored = localStorage.getItem("userInfo");
+    setOwnData(stored ? JSON.parse(stored) : null);
 
     fetchNotificationData();
   }, []);
 
   return (
-    <div className="px-5 xl:px-50 py-9 flex gap-5 w-full mt-5 bg-gray-100">
-      {/* left side */}
-      <div className="w-[21%] sm:block sm:w-[23%] hidden py-5">
-        <div className="h-fit">
+    <div className="px-5 xl:px-20 py-10 flex gap-6 w-full mt-3 bg-gray-100">
+      {/* LEFT SIDEBAR */}
+      <div className="hidden sm:block sm:w-[22%] py-4">
+        <div className="h-fit sticky top-4">
           <ProfileCard data={ownData} />
         </div>
       </div>
 
-      {/* middle */}
-      <div className="w-full py-5 sm:w-[50%] h-screen overflow-y-auto">
+      {/* MIDDLE SECTION */}
+      <div className="w-full sm:w-[50%] py-4 h-screen overflow-y-auto">
         <Card padding={0}>
           <div className="w-full">
-            {notifications.map((item, index) => (
-              <div
-                key={index}
-                onClick={() => handleOnClickNotification(item)}
-                className={`border-b cursor-pointer flex gap-4 items-center border-gray-300 p-3 ${
-                  item?.isRead ? "bg-gray-200" : "bg-blue-100"
-                }`}
-              >
-                <img
-                  src={item?.sender?.profilePic}
-                  alt=""
-                  className="rounded-full w-12 h-12"
-                />
-                <div>{item?.content}</div>
+            {notifications.length === 0 ? (
+              <div className="p-5 text-center text-gray-500">
+                No notifications yet
               </div>
-            ))}
+            ) : (
+              notifications.map((item, index) => (
+                <div
+                  key={index}
+                  onClick={() => handleOnClickNotification(item)}
+                  className={`flex gap-4 items-center border-b p-4 cursor-pointer transition
+                    ${
+                      item?.isRead
+                        ? "bg-gray-100 hover:bg-gray-200"
+                        : "bg-purple-100 hover:bg-purple-200"
+                    }`}
+                >
+                  <img
+                    src={item?.sender?.profilePic}
+                    alt=""
+                    className="rounded-full w-12 h-12 border shadow-sm"
+                  />
+
+                  <div className="flex flex-col">
+                    <span className="text-sm text-gray-800">
+                      {item?.content}
+                    </span>
+
+                    <span className="text-xs text-gray-500 mt-1">
+                      {item?.createdAt
+                        ? new Date(item.createdAt).toLocaleString()
+                        : ""}
+                    </span>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </Card>
       </div>
 
-      {/* right side */}
-      <div className="w-[26%] py-5 hidden md:block">
-        <div className="my-5 sticky top-19">
+      {/* RIGHT SIDEBAR */}
+      <div className="hidden md:block w-[26%] py-4">
+        <div className="sticky top-4">
           <Advertisement />
         </div>
       </div>

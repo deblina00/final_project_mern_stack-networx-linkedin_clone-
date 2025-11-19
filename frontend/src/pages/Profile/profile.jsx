@@ -228,7 +228,7 @@ const Profile = () => {
                 <div className="relative w-full h-[200px]">
                   {userData?._id === ownData?._id && (
                     <div
-                      className="absolute cursor-pointer top-3 right-3 z-20 w-[35px] flex justify-center items-center h-[35px] rounded-full p-3 bg-white"
+                      className="absolute top-4 right-4 bg-white shadow-md p-2 rounded-full hover:bg-gray-200"
                       onClick={handleOnEditCover}
                     >
                       <EditIcon />{" "}
@@ -236,7 +236,7 @@ const Profile = () => {
                   )}
 
                   <img
-                    className="w-full h-[200px] rounded-tr-lg rounded-tl-lg"
+                    className="w-full h-full object-cover rounded-t-lg"
                     src={userData?.cover_pic}
                     alt=""
                   />
@@ -245,17 +245,17 @@ const Profile = () => {
                     className="absolute object-cover top-24 left-6 z-10"
                   >
                     <img
-                      className="rounded-full border-2 border-white cursor-pointer w-36 h-36"
+                      className="w-36 h-36 rounded-full border-3 border-white shadow-md cursor-pointer object-cover"
                       src={userData?.profilePic}
                       alt=""
                     />
                   </div>
                 </div>
 
-                <div className="mt-10 relative px-8 py-2">
+                <div className="mt-12 px-6 pb-6 relative">
                   {userData?._id === ownData?._id && (
                     <div
-                      className="absolute cursor-pointer top-0 right-3 z-20 w-[35px] flex justify-center items-center h-[35px] rounded-full p-3 bg-white"
+                      className="absolute top-4 right-4 bg-white shadow p-2 rounded-full hover:bg-gray-200"
                       onClick={handleInfoModal}
                     >
                       <EditIcon />{" "}
@@ -263,52 +263,55 @@ const Profile = () => {
                   )}
 
                   <div className="w-full">
-                    <div className="text-2xl">{userData?.f_name}</div>
-                    <div className="text-gray-700">{userData?.headline}</div>
-                    <div className="text-sm text-gray-500">
+                    <h1 className="text-2xl font-semibold">
+                      {userData?.f_name}
+                    </h1>
+                    <p className="text-gray-700">{userData?.headline}</p>
+                    <p className="text-gray-500 text-sm">
                       {userData?.curr_location}
-                    </div>
-                    <div className="text-md text-blue-800 w-fit cursor-pointer hover:underline">
+                    </p>
+                    <p className="text-purple-700 font-medium cursor-pointer mt-1">
                       {userData?.friends?.length} Connections
-                    </div>
+                    </p>
 
                     <div className=" md:flex w-full justify-between">
                       <div className="my-5 flex gap-5">
-                        <div className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
+                        <button className="px-4 py-2 bg-purple-700 text-white rounded-lg hover:bg-purple-800 text-sm font-medium">
                           Open to
-                        </div>
-                        <div
+                        </button>
+                        <button
                           onClick={copyToClipboard}
-                          className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold"
+                          className="px-4 py-2 bg-purple-700 text-white rounded-lg hover:bg-purple-800 text-sm font-medium"
                         >
                           Share
-                        </div>
+                        </button>
+
                         {userData?._id === ownData?._id && (
-                          <div
+                          <button
                             onClick={handleLogout}
-                            className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold"
+                            className="px-4 py-2 bg-purple-700 text-white rounded-lg hover:bg-purple-800 text-sm font-medium"
                           >
                             Logout
-                          </div>
+                          </button>
                         )}
                       </div>
 
                       <div className="my-5 flex gap-5">
                         {amIfriend() ? (
                           <div
-                            onClick={handleMessageModal}
-                            className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold"
+                            onClick={() => setMessageModal(true)}
+                            className="px-4 py-2 bg-purple-700 text-white rounded-lg hover:bg-purple-800 text-sm font-medium"
                           >
                             Message
                           </div>
                         ) : null}
-                        {userData?._id === ownData?._id ? null : (
-                          <div
+                        {userData?._id !== ownData?._id && (
+                          <button
                             onClick={handleSendFriendRequest}
-                            className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold"
+                            className="px-4 py-2 bg-purple-700 text-white rounded-lg hover:bg-purple-800 text-sm font-medium"
                           >
                             {checkFriendStatus()}
-                          </div>
+                          </button>
                         )}
                       </div>
                     </div>
@@ -322,16 +325,14 @@ const Profile = () => {
           <div className="mt-5">
             <Card padding={1}>
               <div className="flex justify-between items-center">
-                <div className="text-xl">About</div>
+                <div className="text-xl font-semibold">About</div>
                 {userData?._id === ownData?._id && (
                   <div onClick={handleAboutModal} className="cursor-pointer">
                     <EditIcon />
                   </div>
                 )}
               </div>
-              <div className="text-gray-700 text-md w-[80%]">
-                {userData?.about}
-              </div>
+              <p className="text-gray-700 mt-2">{userData?.about}</p>
             </Card>
           </div>
 
@@ -339,14 +340,14 @@ const Profile = () => {
           <div className="mt-5">
             <Card padding={1}>
               <div className="flex justify-between items-center">
-                <div className="text-xl">Skills</div>
+                <div className="text-xl font-semibold mb-2">Skills</div>
               </div>
               <div className="text-gray-700 text-md my-2 w-full flex gap-4 flex-wrap">
                 {userData?.skills?.map((item, index) => {
                   return (
                     <div
                       key={index}
-                      className="py-2 px-3 cursor-pointer bg-blue-800 text-white rounded-lg"
+                      className="px-3 py-1 bg-purple-700 text-white text-sm rounded-lg"
                     >
                       {item}
                     </div>
@@ -358,13 +359,13 @@ const Profile = () => {
 
           {/* Activities (Fixed Section) */}
           <div className="mt-5">
-            <Card padding={1}>
+            <Card padding={2}>
               <div className="flex justify-between items-center">
-                <div className="text-xl">Activities</div>
+                <div className="text-xl font-semibold mb-2">Activities</div>
               </div>
-              <div className="cursor-pointer px-3 py-1 w-fit border rounded-4xl bg-green-800 text-white font-semibold">
+              {/* <div className="cursor-pointer px-3 py-1 w-fit border rounded-4xl bg-green-800 text-white font-semibold">
                 Posts
-              </div>
+              </div> */}
 
               {/* Parent div for scrollable activities  */}
               <div className="overflow-x-auto my-2 flex gap-4 pb-3 no-scrollbar">
@@ -374,17 +375,17 @@ const Profile = () => {
                     onClick={() =>
                       navigate(`/profile/${id}/activities/${item?._id}`)
                     }
-                    className="cursor-pointer shrink-0 w-[360px]"
+                    className="min-w-[350px] cursor-pointer"
                   >
                     <Post profile={1} item={item} personalData={ownData} />
                   </div>
                 ))}
               </div>
-              {totalPosts > 5 && (
-                <div className="w-full flex justify-center items-center">
+              {totalPosts > 3 && (
+                <div className="w-full flex justify-center mt-2">
                   <Link
                     to={`/profile/${id}/activities`}
-                    className="p-2 rounded-xl cursor-pointer hover:bg-gray-300"
+                    className="flex items-center gap-1 text-purple-700 hover:underline"
                   >
                     Show All Posts <ArrowRightAltIcon />
                   </Link>
@@ -395,9 +396,9 @@ const Profile = () => {
 
           {/* Experience */}
           <div className="mt-5">
-            <Card padding={1}>
+            <Card padding={2}>
               <div className="flex justify-between items-center">
-                <div className="text-xl">Experience</div>
+                <div className="text-xl font-semibold">Experience</div>
                 {userData?._id === ownData?._id && (
                   <div onClick={handleExpModal} className="cursor-pointer ">
                     <AddIcon />
@@ -413,8 +414,12 @@ const Profile = () => {
                       className="p-2 border-t border-gray-300 flex justify-between"
                     >
                       <div>
-                        <div className="text-lg">{item.designation}</div>
-                        <div className="text-sm">{item.company_name}</div>
+                        <div className="text-lg font-medium">
+                          {item.designation}
+                        </div>
+                        <div className="text-sm text-gray-600">
+                          {item.company_name}
+                        </div>
                         <div className="text-sm text-gray-500">
                           {item.duration}
                         </div>
@@ -427,7 +432,7 @@ const Profile = () => {
                           onClick={() => {
                             updateExpEdit(item._id, item);
                           }}
-                          className="cursor-pointer"
+                          className="cursor-pointer text-gray-600 hover:text-gray-800"
                         >
                           <EditIcon />
                         </div>

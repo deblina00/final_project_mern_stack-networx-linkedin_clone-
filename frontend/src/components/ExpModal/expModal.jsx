@@ -38,69 +38,71 @@ const ExpModal = ({ handleEditFunc, selfData, updateExp, setUpdateExp }) => {
   };
 
   return (
-    <div className="mt-8 w-full h-[350px] overflow-auto">
-      <div className="w-full mb-4">
-        <label>Role*</label>
-        <br />
+    <div className="bg-white p-6 space-y-6 w-full max-h-[450px] overflow-y-auto">
+      {/* ROLE */}
+      <div className="space-y-2">
+        <label className="font-medium text-gray-700">Role*</label>
         <input
           type="text"
           value={data.designation}
           onChange={(e) => onChangeHandle(e, "designation")}
-          className="p-2 mt-1 w-full border rounded-md"
+          className="p-3 w-full border rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none"
           placeholder="Enter Role"
         />
       </div>
 
-      <div className="w-full mb-4">
-        <label>Company*</label>
-        <br />
+      {/* COMPANY */}
+      <div className="space-y-2">
+        <label className="font-medium text-gray-700">Company*</label>
         <input
           type="text"
           value={data.company_name}
           onChange={(e) => onChangeHandle(e, "company_name")}
-          className="p-2 mt-1 w-full border rounded-md"
+          className="p-3 w-full border rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none"
           placeholder="Enter Company Name"
         />
       </div>
 
-      <div className="w-full mb-4">
-        <label>Duration*</label>
-        <br />
+      {/* DURATION */}
+      <div className="space-y-2">
+        <label className="font-medium text-gray-700">Duration*</label>
         <input
           type="text"
           value={data.duration}
           onChange={(e) => onChangeHandle(e, "duration")}
-          className="p-2 mt-1 w-full border rounded-md"
+          className="p-3 w-full border rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none"
           placeholder="Enter Duration"
         />
       </div>
 
-      <div className="w-full mb-4">
-        <label>Place*</label>
-        <br />
+      {/* LOCATION */}
+      <div className="space-y-2">
+        <label className="font-medium text-gray-700">Location*</label>
         <input
           type="text"
           value={data.location}
           onChange={(e) => onChangeHandle(e, "location")}
-          className="p-2 mt-1 w-full border rounded-md"
-          placeholder="Enter Place"
+          className="p-3 w-full border rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-purple-600 outline-none"
+          placeholder="Enter Location"
         />
       </div>
 
-      <div className="flex justify-between">
-        <div
-          className="bg-blue-950 text-white w-fit py-1 px-3 cursor-pointer rounded-2xl"
+      {/* ACTION BUTTONS */}
+      <div className="flex justify-between pt-4">
+        <button
           onClick={handleOnSave}
+          className="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-sm transition"
         >
           Save
-        </div>
+        </button>
+
         {updateExp?.clicked && (
-          <div
-            className="bg-blue-950 text-white w-fit py-1 px-3 cursor-pointer rounded-2xl"
+          <button
             onClick={handleOnDelete}
+            className="px-5 py-2 border border-red-400 text-red-600 hover:bg-red-50 rounded-xl transition"
           >
             Delete
-          </div>
+          </button>
         )}
       </div>
     </div>

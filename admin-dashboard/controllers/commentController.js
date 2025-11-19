@@ -23,37 +23,39 @@ exports.list = async (req, res) => {
   });
 };
 
-// // commentController.js
-// exports.delete = async (req, res) => {
-//   if (!req.session.admin)
-//     return res.status(401).json({ error: "Unauthorized" });
-
-//   const { id } = req.params;
-//   const comment = await Comment.findByIdAndDelete(id);
-//   if (!comment) return res.status(404).json({ error: "Comment not found" });
-
-//   return res.json({ success: true, message: "Comment deleted successfully" });
-// };
-
-
 
 exports.remove = async (req, res) => {
-  if (!req.session.admin)
-    return res.status(401).json({ error: "Unauthorized" });
+  try {
+    if (!req.session.admin)
+      return res.status(401).json({ error: "Unauthorized" });
 
-  const { id } = req.params;
-  const { reason } = req.body;
+    const { id } = req.params;
+    const reason = req.query.reason || req.body.reason || "No reason provided";
 
-  const comment = await Comment.findByIdAndDelete(id).populate("user");
-  if (!comment) return res.status(404).json({ error: "Comment not found" });
+    const comment = await Comment.findByIdAndDelete(id).populate("user");
+    if (!comment) return res.status(404).json({ error: "Comment not found" });
 
-  // Send email
-  await sendEmail(
-    comment.user.email,
-    "comment_removed",
-    { fullName: comment.user.f_name, commentText: comment.comment, reason },
-    "Your Comment Has Been Removed"
-  );
+    // Send email only if user exists
+    if (comment.user && comment.user.email) {
+      try {
+        await sendEmail(
+          comment.user.email,
+          "comment_removed",
+          {
+            fullName: comment.user.f_name || "User",
+            commentText: comment.comment,
+            reason,
+          },
+          "Your Comment Has Been Removed"
+        );
+      } catch (err) {
+        console.error("Failed to send email:", err);
+      }
+    }
 
-  return res.json({ success: true });
+    return res.json({ success: true });
+  } catch (err) {
+    console.error("Comment deletion error:", err);
+    return res.status(500).json({ error: "Server error" });
+  }
 };

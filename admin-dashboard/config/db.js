@@ -4,11 +4,7 @@ require("dotenv").config();
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      // recommended options are default in mongoose v6+, but include for clarity
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.MONGO_URI);
     console.log("✅ Admin Dashboard: MongoDB connected");
   } catch (err) {
     console.error("❌ MongoDB connection failed:", err.message);

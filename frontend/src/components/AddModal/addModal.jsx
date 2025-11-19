@@ -63,13 +63,17 @@ const AddModal = ({ personalData, mode }) => {
   };
 
   return (
-    <div>
-      <div className="flex gap-4 items-center">
+    <div className="w-full max-w-xl max-h-[75vh] overflow-y-auto p-6 bg-white flex flex-col gap-4 mx-auto">
+      {/* Header */}
+      <div className="flex items-center gap-4">
         <img
-          className="w-14 h-14 rounded-full"
+          className="w-14 h-14 rounded-full border-2 border-purple-300 shadow-sm"
           src={personalData?.profilePic}
+          alt="profile"
         />
-        <div className="text-2xl">{personalData?.f_name}</div>
+        <div className="text-xl font-semibold text-purple-800">
+          {personalData?.f_name}
+        </div>
       </div>
 
       {/* Caption */}
@@ -78,14 +82,19 @@ const AddModal = ({ personalData, mode }) => {
         onChange={(e) => setDesc(e.target.value)}
         rows={4}
         placeholder="What's on your mind?"
-        className="w-full my-3 border p-2"
+        className="w-full border border-purple-200 rounded-lg p-3 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
       />
 
       {/* IMAGE MODE */}
       {mode === "photo" && (
-        <div>
-          {imageUrl && <img className="w-40 rounded" src={imageUrl} />}
-          <label className="cursor-pointer">
+        <div className="flex flex-col gap-2">
+          {imageUrl && (
+            <img
+              className="w-full max-h-60 object-cover rounded-lg"
+              src={imageUrl}
+            />
+          )}
+          <label className="flex items-center gap-2 cursor-pointer text-purple-700 font-medium hover:text-purple-900">
             <ImageIcon /> Upload Photo
             <input
               type="file"
@@ -99,9 +108,15 @@ const AddModal = ({ personalData, mode }) => {
 
       {/* VIDEO MODE */}
       {mode === "video" && (
-        <div>
-          {videoUrl && <video className="w-40" src={videoUrl} controls />}
-          <label className="cursor-pointer">
+        <div className="flex flex-col gap-2">
+          {videoUrl && (
+            <video
+              className="w-full max-h-60 rounded-lg"
+              src={videoUrl}
+              controls
+            />
+          )}
+          <label className="flex items-center gap-2 cursor-pointer text-purple-700 font-medium hover:text-purple-900">
             <SmartDisplayIcon /> Upload Video
             <input
               type="file"
@@ -118,15 +133,16 @@ const AddModal = ({ personalData, mode }) => {
         <textarea
           value={articleText}
           onChange={(e) => setArticleText(e.target.value)}
-          rows={4}
+          rows={6}
           placeholder="Write your article..."
-          className="w-full border p-2"
+          className="w-full border border-purple-200 rounded-lg p-3 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
         />
       )}
 
+      {/* Post Button */}
       <button
-        className="bg-blue-900 text-white px-4 py-2 rounded mt-6 float-right"
         onClick={handlePost}
+        className="mt-3 self-end px-6 py-2 rounded-full bg-linear-to-r from-purple-600 to-purple-900 text-white font-medium shadow-md hover:shadow-lg hover:scale-[1.03] transition-all duration-200"
       >
         Post
       </button>

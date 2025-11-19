@@ -24,11 +24,20 @@ const GoogleLoginComp = (props) => {
   };
 
   return (
-    <div className="w-full">
-      <GoogleLogin
-        onSuccess={handleOnSucess}
-        onError={() => console.log("Google login failed")}
-      />
+    <div className="w-full flex justify-center" style={{ minWidth: "100%" }}>
+      <div
+        className="w-full"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        <GoogleLogin
+          onSuccess={handleOnSucess}
+          onError={() => console.log("Google login failed")}
+          width="100%"
+          theme="outline"
+          shape="pill"
+          size="large"
+        />
+      </div>
     </div>
   );
 };

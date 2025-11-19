@@ -35,25 +35,30 @@ const Login = (props) => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center">
-      <div className="w-[85%] md:w-[28%] shadow-xl rounded-sm box p-10">
-        <div className="text-3xl">Sign In</div>
+    <div className="w-full min-h-screen flex flex-col items-center justify-center bg-[#f3f2ef]">
+      <div className="w-[90%] md:w-[28%] bg-white shadow-lg rounded-lg p-10">
+        {/* Heading */}
+        <div className="text-4xl font-semibold text-gray-900 mb-6">Sign in</div>
 
-        <div className="my-5">
+        {/* Google Sign In */}
+        <div className="mb-6">
           <GoogleLoginComp changeLoginValue={props.changeLoginValue} />
         </div>
 
-        <div className="flex items-center gap-2">
-          <div className="border-b w-[45%]" /> <div>or</div>
-          <div className="border-b w-[45%]" />
+        {/* Divider */}
+        <div className="flex items-center gap-3 my-4">
+          <div className="h-px bg-gray-300 flex-1"></div>
+          <span className="text-gray-500">or</span>
+          <div className="h-px bg-gray-300 flex-1"></div>
         </div>
 
+        {/* Inputs */}
         <div className="flex flex-col gap-4 mt-4">
           <input
             value={loginField.emailOrUsername}
             onChange={(e) => onChangeInput(e, "emailOrUsername")}
             type="text"
-            className="w-full border px-5 py-1"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-base focus:border-purple-500 focus:outline-none"
             placeholder="Email or Username"
           />
 
@@ -61,23 +66,25 @@ const Login = (props) => {
             value={loginField.password}
             onChange={(e) => onChangeInput(e, "password")}
             type="password"
-            className="w-full text-xl border rounded-lg px-5 py-1"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-base focus:border-purple-500 focus:outline-none"
             placeholder="Password"
           />
 
-          <div
+          {/* Login button */}
+          <button
             onClick={handleLogin}
-            className="w-full bg-blue-800 text-white py-3 rounded-xl text-center text-xl cursor-pointer"
+            className="w-full bg-linear-to-r from-purple-600 to-purple-900 text-white font-medium shadow-md hover:shadow-lg hover:scale-[1.03] transition-all duration-200 rounded-full text-lg py-2.5"
           >
-            Login
-          </div>
+            Sign in
+          </button>
         </div>
       </div>
 
-      <div className="mt-4 mb-14">
-        New to LinkedIn?{" "}
-        <Link to="/signUp" className="text-blue-800">
-          Join Now
+      {/* Bottom Text */}
+      <div className="mt-4 mb-10 text-gray-700">
+        New to Networx?{" "}
+        <Link to="/signUp" className="text-blue-700 font-semibold">
+          Join now
         </Link>
       </div>
 

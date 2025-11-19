@@ -7,8 +7,8 @@
   <div class="row g-4">
 
     <!-- USERS -->
-    <div class="col-md-3">
-      <div class="card shadow-sm p-3">
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card shadow-sm p-3 h-100 dashboard-card">
         <h6 class="text-muted">Users</h6>
         <div class="d-flex justify-content-between align-items-center">
           <h3><%= stats.users %></h3>
@@ -27,8 +27,8 @@
     </div>
 
     <!-- POSTS -->
-    <div class="col-md-3">
-      <div class="card shadow-sm p-3">
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card shadow-sm p-3 h-100 dashboard-card">
         <h6 class="text-muted">Posts</h6>
         <div class="d-flex justify-content-between align-items-center">
           <h3><%= stats.posts %></h3>
@@ -43,8 +43,8 @@
     </div>
 
     <!-- COMMENTS -->
-    <div class="col-md-3">
-      <div class="card shadow-sm p-3">
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card shadow-sm p-3 h-100 dashboard-card">
         <h6 class="text-muted">Comments</h6>
         <div class="d-flex justify-content-between align-items-center">
           <h3><%= stats.comments %></h3>
@@ -59,8 +59,8 @@
     </div>
 
     <!-- MESSAGES -->
-    <div class="col-md-3">
-      <div class="card shadow-sm p-3">
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card shadow-sm p-3 h-100 dashboard-card">
         <h6 class="text-muted">Messages</h6>
         <div class="d-flex justify-content-between align-items-center">
           <h3><%= stats.messages %></h3>
@@ -70,6 +70,33 @@
           <% } else { %>
             <span class="text-danger fw-bold"><%= stats.messagesChange %>%</span>
           <% } %>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTIFICATIONS -->
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card shadow-sm p-3 h-100 dashboard-card">
+        <h6 class="text-muted">Notifications</h6>
+        <div class="d-flex justify-content-between align-items-center">
+          <h3><%= stats.notifications %></h3>
+
+          <% if (stats.notificationsChange >= 0) { %>
+            <span class="text-success fw-bold">+<%= stats.notificationsChange %>%</span>
+          <% } else { %>
+            <span class="text-danger fw-bold"><%= stats.notificationsChange %>%</span>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXTRA CARD (OPTIONAL FUTURE GROWTH METRIC) -->
+    <div class="col-6 col-md-4 col-lg-2">
+      <div class="card shadow-sm p-3 h-100 dashboard-card">
+        <h6 class="text-muted">Engagement</h6>
+        <div class="d-flex justify-content-between align-items-center">
+          <h3><%= stats.engagement || 0 %></h3>
+          <span class="text-primary fw-bold">+12%</span>
         </div>
       </div>
     </div>
@@ -86,7 +113,6 @@
 
 <script>
   const ctx = document.getElementById('activityChart');
-
   new Chart(ctx, {
     type: 'line',
     data: {
@@ -100,8 +126,20 @@
         tension: .3
       }]
     },
-    options: { responsive:true }
+    options: { responsive: true }
   });
 </script>
+
+<style>
+  /* More professional dashboard look */
+  .dashboard-card {
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .dashboard-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  }
+</style>
 
 <%- include('partials/footer') %>

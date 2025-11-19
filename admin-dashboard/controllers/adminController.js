@@ -3,6 +3,7 @@ const Post = require("../models/post");
 const Comment = require("../models/comment");
 const Message = require("../models/message");
 const sendEmail = require("../utils/sendEmail");
+const Notification = require("../models/notification");
 
 exports.getLogin = (req, res) => {
   if (req.session.admin) return res.redirect("/dashboard");
@@ -36,11 +37,13 @@ exports.getDashboard = async (req, res) => {
     posts: await Post.countDocuments(),
     comments: await Comment.countDocuments(),
     messages: await Message.countDocuments(),
+    notifications: await Notification.countDocuments(),
 
     usersChange: 5,
     postsChange: -3,
     commentsChange: 12,
     messagesChange: 7,
+    notificationsChange: 10,
   };
 
   res.render("dashboard", { admin: req.session.admin, stats });

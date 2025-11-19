@@ -1,8 +1,7 @@
-
-.searchInput{
-    transition: width 0.5s;
+.searchInput {
+  transition: width 0.4s ease;
 }
-.searchInput:focus{
-    width: 350px;
 
+.searchInput:focus {
+  width: 350px;
 }

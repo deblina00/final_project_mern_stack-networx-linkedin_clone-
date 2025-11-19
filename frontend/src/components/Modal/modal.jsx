@@ -1,19 +1,26 @@
+
+
+// Modal.jsx
 import React from "react";
 import CloseIcon from "@mui/icons-material/Close";
-const Modal = (props) => {
+
+const Modal = ({ children, closeModal, title }) => {
   return (
-    <div className="bg-black/50 fixed top-0 left-0 inset-0 z-20 flex justify-center items-center">
-      <div className="w-[95%] md:w-[50%]  h-[500px]  bg-white rounded-xl p-10">
-        <div className="flex justify-between">
-          <div className="flex gap-4 items-center">
-            <div className="text-2xl">{props.title}</div>
-          </div>
-          <div onClick={() => props.closeModal()} className="cursor-pointer">
-            <CloseIcon />
-          </div>
+    <div className="bg-black/50 fixed top-0 left-0 inset-0 z-30 flex justify-center items-start md:items-center overflow-y-auto py-10">
+      <div className="w-full max-w-lg bg-white rounded-2xl shadow-lg p-6 relative">
+        {/* Close Button */}
+        <div
+          onClick={closeModal}
+          className="absolute top-4 right-4 cursor-pointer text-gray-600 hover:text-gray-900"
+        >
+          <CloseIcon />
         </div>
 
-        {props.children}
+        {/* Optional title */}
+        {title && <div className="text-xl font-semibold mb-4">{title}</div>}
+
+        {/* Modal content */}
+        {children}
       </div>
     </div>
   );

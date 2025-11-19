@@ -41,12 +41,12 @@ const AllActivities = () => {
       <div className="w-full py-5 sm:w-[50%] ">
         <div>
           <Card padding={1}>
-            <div className="text-xl">All Activity</div>
-            <div className="cursor-pointer w-fit p-2 border rounded-4xl bg-green-800 my-2 text-white font-semibold">
+            <div className="text-2xl font-semibold">All Activity</div>
+            <div className="cursor-pointer w-fit px-4 py-1.5 border rounded-lg bg-linear-to-r from-purple-600 to-purple-900 text-white my-2 font-semibold">
               Posts
             </div>
 
-            <div className="my-2 flex flex-col gap-2">
+            <div className="my-2 flex flex-col gap-2 shadow-lg">
               {post.map((item, index) => {
                 return (
                   <div key={index}>
