@@ -9,9 +9,10 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.json()); // parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // if you accept form posts
+app.use(express.static(path.join(__dirname, 'public'))); // serve /public
+
 
 // Sessions for admin login
 app.use(
