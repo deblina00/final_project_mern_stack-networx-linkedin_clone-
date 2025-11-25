@@ -34,7 +34,12 @@
             <td><%= m.conversation ? m.conversation._id : '—' %></td>
             <td><%= new Date(m.createdAt).toLocaleString() %></td>
             <td class="text-end">
-              <button class="btn btn-sm btn-danger" onclick="openDeleteModal({ url: '/messages/<%= m._id %>', rowId: 'message-<%= m._id %>' })">Delete</button>
+              <button class="btn btn-sm btn-danger" onclick="openConfirmModal({
+      title: 'Delete message',
+      text: 'Are you sure you want to delete this message?',
+      showReason: false,
+      onConfirm: (reason) => deleteResource('/messages/<%= m._id %>', 'message-<%= m._id %>', reason)
+       })">Delete</button>
             </td>
           </tr>
         <% }) %>
@@ -54,3 +59,5 @@
 </div>
 
 <%- include('partials/footer') %>
+<!-- Page scripts -->
+<script src="/js/deleteModal.js"></script>

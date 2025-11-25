@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-
-import "./App.css";
 import Navbar1 from "./components/NavbarV1/navbar1";
 import LandingPage from "./pages/LandingPage/landingPage";
 import Footer from "./components/Footer/footer";
@@ -17,6 +15,8 @@ import AllActivities from "./pages/AllActivities/allActivities";
 import SingleActivity from "./pages/SingleActivity/singleActivity";
 import Notification from "./pages/Notification/notification";
 import VerifyOtpPage from "./pages/VerifyOtp/VerifyOtp";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [isLogin, setIsLogin] = useState(localStorage.getItem("isLogin"));
@@ -101,6 +101,18 @@ function App() {
         />
       </Routes>
       <Footer />
+      {/* Toast container at root level */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        pauseOnHover
+        draggable
+        closeButton={true}
+        toastClassName="bg-purple-600 text-white font-semibold rounded-lg shadow-lg"
+      />
     </div>
   );
 }

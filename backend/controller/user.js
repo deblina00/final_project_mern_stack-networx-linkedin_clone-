@@ -110,38 +110,99 @@ exports.loginThroghGmail = async (req, res) => {
   }
 };
 
+// exports.register = async (req, res) => {
+//   try {
+//     // console.log(req.body);
+//     const { error, value } = registerSchema.validate(req.body);
+//     if (error) return res.status(400).json({ message: error.message });
+
+//     let { email, password, f_name, username } = req.body;
+//     let isUserExist = await User.findOne({ $or: [{ email }, { username }] });
+//     if (isUserExist) {
+//       return res.status(409).json({
+//         error:
+//           "Already have an account with this email. Please try with other email ID",
+//       });
+//     }
+
+//     const hashedPassword = await bcrypt.hash(password, 10);
+//     // console.log(hashedPassword);
+
+//     const newUser = new User({
+//       email,
+//       password: hashedPassword,
+//       f_name,
+//       username,
+//     });
+
+//     // generate 6-digit OTP, expires in 10 minutes
+//     const otp = Math.floor(100000 + Math.random() * 900000).toString();
+//     newUser.otp = { code: otp, expiresAt: Date.now() + 10 * 60 * 1000 };
+//     await newUser.save();
+
+//     // send OTP email
+//     const mail = otpTemplate({ f_name, otp });
+//     await sendMail({ to: email, subject: mail.subject, html: mail.html });
+
+//     return res.status(201).json({
+//       message:
+//         "User registered successfully. OTP sent to email. Please verify.",
+//       success: "yes",
+//       data: newUser,
+//     });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ error: "Server error", message: err.message });
+//   }
+// };
+
 exports.register = async (req, res) => {
   try {
-    // console.log(req.body);
+    // Validate request body
     const { error, value } = registerSchema.validate(req.body);
     if (error) return res.status(400).json({ message: error.message });
 
     let { email, password, f_name, username } = req.body;
-    let isUserExist = await User.findOne({ $or: [{ email }, { username }] });
+
+    // Check if user already exists by email or username
+    const isUserExist = await User.findOne({ $or: [{ email }, { username }] });
     if (isUserExist) {
       return res.status(409).json({
         error:
-          "Already have an account with this email. Please try with other email ID",
+          "An account with this email or username already exists. Please try another.",
       });
     }
 
+    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    // console.log(hashedPassword);
 
+    // Create new user with OTP
     const newUser = new User({
       email,
       password: hashedPassword,
       f_name,
       username,
+      otp: {
+        code: Math.floor(100000 + Math.random() * 900000).toString(),
+        expiresAt: Date.now() + 10 * 60 * 1000, // 10 minutes
+      },
     });
 
-    // generate 6-digit OTP, expires in 10 minutes
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    newUser.otp = { code: otp, expiresAt: Date.now() + 10 * 60 * 1000 };
-    await newUser.save();
+    // Save user, catch duplicate key errors from MongoDB
+    try {
+      await newUser.save();
+    } catch (err) {
+      if (err.code === 11000) {
+        return res.status(409).json({
+          error: "Email or username already exists",
+          message: err.message,
+        });
+      }
+      throw err; // rethrow other errors
+    }
 
-    // send OTP email
-    const mail = otpTemplate({ f_name, otp });
+    // Send OTP email
+    const mail = otpTemplate({ f_name, otp: newUser.otp.code });
     await sendMail({ to: email, subject: mail.subject, html: mail.html });
 
     return res.status(201).json({
@@ -151,7 +212,7 @@ exports.register = async (req, res) => {
       data: newUser,
     });
   } catch (err) {
-    console.error(err);
+    console.error("Register error:", err);
     res.status(500).json({ error: "Server error", message: err.message });
   }
 };
@@ -338,7 +399,6 @@ exports.logout = async (req, res) => {
 
   return res.json({ message: "Logged out successfully" });
 };
-
 
 exports.findUser = async (req, res) => {
   try {

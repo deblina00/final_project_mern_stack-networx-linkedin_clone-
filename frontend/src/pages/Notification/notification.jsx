@@ -45,16 +45,16 @@ const Notification = () => {
   }, []);
 
   return (
-    <div className="px-5 xl:px-20 py-10 flex gap-6 w-full mt-3 bg-gray-100">
-      {/* LEFT SIDEBAR */}
-      <div className="hidden sm:block sm:w-[22%] py-4">
-        <div className="h-fit sticky top-4">
+    <div className="px-5 xl:px-20 py-10 w-full mt-3 bg-gray-100 flex gap-6 pb-24">
+      {/* LEFT SIDEBAR (Desktop only) */}
+      <div className="hidden md:block md:w-[22%] py-6">
+        <div className="sticky top-4">
           <ProfileCard data={ownData} />
         </div>
       </div>
 
       {/* MIDDLE SECTION */}
-      <div className="w-full sm:w-[50%] py-4 h-screen overflow-y-auto">
+      <div className="w-full md:w-[50%] h-screen py-6 overflow-y-auto">
         <Card padding={0}>
           <div className="w-full">
             {notifications.length === 0 ? (
@@ -75,11 +75,10 @@ const Notification = () => {
                 >
                   <img
                     src={item?.sender?.profilePic}
-                    alt=""
-                    className="rounded-full w-12 h-12 border shadow-sm"
+                    className="rounded-full w-12 h-12 border shadow-sm object-cover"
                   />
 
-                  <div className="flex flex-col">
+                  <div className="flex flex-col w-full">
                     <span className="text-sm text-gray-800">
                       {item?.content}
                     </span>
@@ -97,8 +96,8 @@ const Notification = () => {
         </Card>
       </div>
 
-      {/* RIGHT SIDEBAR */}
-      <div className="hidden md:block w-[26%] py-4">
+      {/* RIGHT SIDEBAR (Desktop only) */}
+      <div className="hidden xl:block w-[26%] py-6">
         <div className="sticky top-4">
           <Advertisement />
         </div>

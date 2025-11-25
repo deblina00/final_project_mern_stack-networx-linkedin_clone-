@@ -45,12 +45,12 @@ const UserSchema = new mongoose.Schema(
     },
     profilePic: {
       type: String,
-      default:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/2048px-Windows_10_Default_Profile_Picture.svg.png",
+      default: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
     },
     cover_pic: {
       type: String,
-      default: "https://pbs.twimg.com/media/Ek0QSuNWAAICxpX.png",
+      default:
+        "https://thingscareerrelated.com/wp-content/uploads/2021/10/default-background-image.png",
     },
     about: {
       type: String,

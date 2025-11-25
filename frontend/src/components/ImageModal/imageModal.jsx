@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -42,26 +43,26 @@ const ImageModal = ({ isCircular, selfData, handleEditFunc }) => {
   };
 
   return (
-    <div className="p-6 relative h-full flex flex-col items-center bg-white">
-      {/* == IMAGE PREVIEW == */}
+    <div className="p-6 sm:p-6 relative h-full flex flex-col items-center bg-white max-w-xl mx-auto w-full">
+      {/* IMAGE PREVIEW */}
       {isCircular ? (
         <img
           src={imgLink}
-          className="w-40 h-40 rounded-md object-cover shadow"
+          className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover shadow"
         />
       ) : (
         <img
           src={imgLink}
-          className="w-full h-[200px] rounded-md object-cover shadow"
+          className="w-full h-[150px] sm:h-[200px] rounded-md object-cover shadow"
         />
       )}
 
-      {/* == BUTTONS AREA == */}
-      <div className="flex justify-between w-full mt-6 px-4">
-        {/* Upload Button */}
+      {/* Buttons section */}
+      <div className="flex justify-between w-full mt-6 px-2 sm:px-4">
         <label
           htmlFor="imgUploadInput"
-          className="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm rounded-xl cursor-pointer shadow transition"
+          className="px-4 py-2 bg-purple-600 hover:bg-purple-700 
+          text-white text-sm rounded-xl cursor-pointer shadow transition"
         >
           Upload
         </label>
@@ -73,13 +74,13 @@ const ImageModal = ({ isCircular, selfData, handleEditFunc }) => {
           onChange={handleInputImage}
         />
 
-        {/* Save Button */}
         {loading ? (
           <div className="w-6 h-6 border-2 border-gray-300 border-t-purple-600 rounded-full animate-spin"></div>
         ) : (
           <button
             onClick={handleSubmitBtn}
-            className="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm rounded-xl shadow transition"
+            className="px-4 py-2 bg-purple-600 hover:bg-purple-700 
+            text-white text-sm rounded-xl shadow transition"
           >
             Save
           </button>

@@ -1,4 +1,5 @@
-// Resume.jsx
+
+// --- Resume.jsx ---
 import React, { useState, useEffect } from "react";
 import Card from "../../components/Card/card";
 import Advertisement from "../../components/Advertisement/advertisement";
@@ -12,9 +13,9 @@ const Resume = () => {
   }, []);
 
   return (
-    <div className="px-5 xl:px-50 py-9 flex gap-5 w-full mt-5 bg-gray-100">
-      {/* Left/Main Section */}
-      <div className="w-full sm:w-[70%] py-5 flex flex-col gap-5">
+    <div className="px-4 sm:px-5 xl:px-50 py-9 mt-5 bg-gray-100 pb-24 flex flex-col md:flex-row gap-5 w-full">
+      {/* MAIN */}
+      <div className="w-full md:w-[70%] py-6 ">
         <Card
           padding={2}
           className="rounded-2xl shadow-lg border border-purple-100"
@@ -24,11 +25,7 @@ const Resume = () => {
           </div>
 
           {userData?.resume ? (
-            <img
-              className="w-full rounded-lg"
-              src={userData.resume}
-              alt="Resume"
-            />
+            <img src={userData.resume} className="w-full rounded-lg" />
           ) : (
             <div className="text-center text-gray-500 text-lg py-20">
               No Resume Uploaded
@@ -37,8 +34,8 @@ const Resume = () => {
         </Card>
       </div>
 
-      {/* Right/Advertisement Section */}
-      <div className="w-[26%] py-5 hidden md:block">
+      {/* RIGHT ADS */}
+      <div className="hidden md:block md:w-[26%]">
         <div className="sticky top-20">
           <Advertisement />
         </div>

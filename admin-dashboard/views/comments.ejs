@@ -29,10 +29,14 @@
             <td><%= c.user ? c.user.f_name : '—' %></td>
             <td><%= c.comment %></td>
             <td><%= c.post ? c.post._id : '—' %></td>
-            <td><%= new Date(c.createdAt).toLocaleString() %></td>
+            <td><%= c.createdAt ? new Date(c.createdAt).toLocaleString() : '—' %></td>
             <td class="text-end">
               <!-- route is DELETE /comments/remove/:id -->
-              <button class="btn btn-sm btn-danger" onclick="openDeleteModal({ url: '/comments/remove/<%= c._id %>', rowId: 'comment-<%= c._id %>', text: 'Remove this comment? This will also send an email to the user.', showReason: true })">
+              <button class="btn btn-sm btn-danger" onclick="openConfirmModal({
+    title: 'Delete comment',
+    text: 'Remove this comment? This will also send an email to the user.',
+    showReason: true,
+    onConfirm: (reason) => deleteResource('/comments/remove/<%= c._id %>', 'comment-<%= c._id %>', reason) })">
                 Remove
               </button>
             </td>
@@ -54,3 +58,5 @@
 </div>
 
 <%- include('partials/footer') %>
+<!-- Page scripts -->
+<script src="/js/deleteModal.js"></script>

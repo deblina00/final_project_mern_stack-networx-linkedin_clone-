@@ -7,7 +7,7 @@ import CloseIcon from "@mui/icons-material/Close";
 const Modal = ({ children, closeModal, title }) => {
   return (
     <div className="bg-black/50 fixed top-0 left-0 inset-0 z-30 flex justify-center items-start md:items-center overflow-y-auto py-10">
-      <div className="w-full max-w-lg bg-white rounded-2xl shadow-lg p-6 relative">
+      <div className="w-full max-w-lg bg-white rounded-2xl mt-8 shadow-lg p-6 relative">
         {/* Close Button */}
         <div
           onClick={closeModal}

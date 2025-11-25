@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import GoogleLoginComp from "../../components/GoogleLogin/googleLoginComp";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import api from "../../lib/api";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const Login = (props) => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
   const [loginField, setLoginField] = useState({
     emailOrUsername: "",
     password: "",
@@ -22,7 +25,7 @@ const Login = (props) => {
 
     try {
       const res = await api.post("/auth/login", loginField);
-
+      toast.success("Login Successful! Welcom to Networx.");
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("userInfo", JSON.stringify(res.data.user));
       localStorage.setItem("isLogin", "true");
@@ -35,13 +38,16 @@ const Login = (props) => {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center bg-[#f3f2ef]">
-      <div className="w-[90%] md:w-[28%] bg-white shadow-lg rounded-lg p-10">
+    <div className="w-full min-h-screen flex flex-col items-center justify-center bg-[#f3f2ef] px-4">
+      {/* Card */}
+      <div className="w-full max-w-[420px] bg-white shadow-xl rounded-lg p-8 sm:p-10">
         {/* Heading */}
-        <div className="text-4xl font-semibold text-gray-900 mb-6">Sign in</div>
+        <div className="text-3xl sm:text-4xl font-semibold text-gray-900 mb-6 text-center sm:text-left">
+          Sign in
+        </div>
 
-        {/* Google Sign In */}
-        <div className="mb-6">
+        {/* Google Sign-In */}
+        <div className="mb-6 flex justify-center sm:block">
           <GoogleLoginComp changeLoginValue={props.changeLoginValue} />
         </div>
 
@@ -53,7 +59,14 @@ const Login = (props) => {
         </div>
 
         {/* Inputs */}
-        <div className="flex flex-col gap-4 mt-4">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleLogin();
+          }}
+          className="flex flex-col gap-4 mt-4"
+        >
+          {/* Email / Username */}
           <input
             value={loginField.emailOrUsername}
             onChange={(e) => onChangeInput(e, "emailOrUsername")}
@@ -62,33 +75,43 @@ const Login = (props) => {
             placeholder="Email or Username"
           />
 
-          <input
-            value={loginField.password}
-            onChange={(e) => onChangeInput(e, "password")}
-            type="password"
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-base focus:border-purple-500 focus:outline-none"
-            placeholder="Password"
-          />
+          {/* Password with eye icon */}
+          <div className="relative w-full">
+            <input
+              value={loginField.password}
+              onChange={(e) => onChangeInput(e, "password")}
+              type={showPassword ? "text" : "password"}
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 pr-12 text-base focus:border-purple-500 focus:outline-none"
+              placeholder="Password"
+            />
 
-          {/* Login button */}
+            <div
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-gray-600 hover:text-gray-800 text-xl"
+            >
+              {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+            </div>
+          </div>
+          {/* Login Button */}
           <button
-            onClick={handleLogin}
+            type="submit"
             className="w-full bg-linear-to-r from-purple-600 to-purple-900 text-white font-medium shadow-md hover:shadow-lg hover:scale-[1.03] transition-all duration-200 rounded-full text-lg py-2.5"
           >
             Sign in
           </button>
-        </div>
+        </form>
       </div>
 
       {/* Bottom Text */}
-      <div className="mt-4 mb-10 text-gray-700">
+      <div className="mt-4 mb-10 text-gray-700 text-center">
         New to Networx?{" "}
-        <Link to="/signUp" className="text-blue-700 font-semibold">
+        <Link
+          to="/signUp"
+          className="text-purple-700 font-semibold hover:underline"
+        >
           Join now
         </Link>
       </div>
-
-      <ToastContainer />
     </div>
   );
 };

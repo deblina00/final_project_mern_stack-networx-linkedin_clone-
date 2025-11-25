@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import api from "../../lib/api";
+import { toast } from "react-toastify";
 
 export default function VerifyOtpPage() {
   const loc = useLocation();
@@ -14,10 +15,10 @@ export default function VerifyOtpPage() {
 
     try {
       await api.post("/auth/verify-otp", { email, otp });
-      alert("Email verified! You may now login.");
+      toast.success("Email verified! You may now login.");
       nav("/login");
     } catch (err) {
-      alert(err.response?.data?.error || "OTP verification failed");
+      toast.error(err.response?.data?.error || "OTP verification failed");
     }
   }
 

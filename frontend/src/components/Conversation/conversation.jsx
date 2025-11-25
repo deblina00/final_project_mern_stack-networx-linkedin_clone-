@@ -11,14 +11,19 @@ const Conversation = ({ item, ownData, handleSelectedConv, activeConvId }) => {
   return (
     <div
       onClick={() => handleSelectedConv(item?._id, memberData)}
-      className={`flex items-center gap-3 p-4 border-b border-gray-300 cursor-pointer hover:bg-gray-200 ${
-        activeConvId === item?._id ? "bg-gray-200" : ""
+      className={`flex items-center gap-3 p-3 border-b border-gray-200 cursor-pointer hover:bg-gray-100 ${
+        activeConvId === item?._id ? "bg-gray-100" : ""
       }`}
     >
-      <img src={memberData?.profilePic} className="w-12 h-12 rounded-full" />
-      <div>
-        <p className="text-md">{memberData?.f_name}</p>
-        <p className="text-sm text-gray-500">{memberData?.headline}</p>
+      <img
+        src={memberData?.profilePic}
+        className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
+      />
+      <div className="min-w-0">
+        <p className="text-sm md:text-md font-medium truncate">
+          {memberData?.f_name}
+        </p>
+        <p className="text-xs text-gray-500 truncate">{memberData?.headline}</p>
       </div>
     </div>
   );

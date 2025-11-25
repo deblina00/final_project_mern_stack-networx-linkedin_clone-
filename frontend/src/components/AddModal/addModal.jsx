@@ -63,7 +63,8 @@ const AddModal = ({ personalData, mode }) => {
   };
 
   return (
-    <div className="w-full max-w-xl max-h-[75vh] overflow-y-auto p-6 bg-white flex flex-col gap-4 mx-auto">
+    // <div className="w-full max-w-xl max-h-[75vh] overflow-y-auto p-6 bg-white flex flex-col gap-4 mx-auto">
+    <div className="w-full max-w-lg max-h-[80vh] overflow-y-auto p-4 sm:p-6 bg-white flex flex-col gap-4 mx-auto rounded-xl">
       {/* Header */}
       <div className="flex items-center gap-4">
         <img
@@ -82,7 +83,7 @@ const AddModal = ({ personalData, mode }) => {
         onChange={(e) => setDesc(e.target.value)}
         rows={4}
         placeholder="What's on your mind?"
-        className="w-full border border-purple-200 rounded-lg p-3 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
+        className="w-full border border-purple-200 rounded-lg p-3 text-sm sm:text-base resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
       />
 
       {/* IMAGE MODE */}
@@ -135,14 +136,14 @@ const AddModal = ({ personalData, mode }) => {
           onChange={(e) => setArticleText(e.target.value)}
           rows={6}
           placeholder="Write your article..."
-          className="w-full border border-purple-200 rounded-lg p-3 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
+          className="w-full border border-purple-200 rounded-lg p-3 text-sm sm:text-base resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
         />
       )}
 
       {/* Post Button */}
       <button
         onClick={handlePost}
-        className="mt-3 self-end px-6 py-2 rounded-full bg-linear-to-r from-purple-600 to-purple-900 text-white font-medium shadow-md hover:shadow-lg hover:scale-[1.03] transition-all duration-200"
+        className="mt-3 self-end px-4 sm:px-6 py-2 rounded-full bg-linear-to-r from-purple-600 to-purple-900 text-white font-medium shadow-md hover:shadow-lg hover:scale-[1.03] transition-all duration-200"
       >
         Post
       </button>

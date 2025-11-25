@@ -1,11 +1,16 @@
-import React from 'react'
+import React from "react";
 
 const Card = (props) => {
   return (
-    <div className={`w-full h-full flex flex-col border border-gray-300 bg-white rounded-md ${props.padding?'p-5':'p-0'}`}>
-        {props.children}
+    // <div className={`w-full h-full flex flex-col border border-gray-300 bg-white rounded-md ${props.padding?'p-5':'p-0'}`}>
+    <div
+      className={`w-full h-full flex flex-col border border-gray-300 bg-white rounded-lg ${
+        props.padding ? "p-4 sm:p-5" : "p-0"
+      }`}
+    >
+      {props.children}
     </div>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

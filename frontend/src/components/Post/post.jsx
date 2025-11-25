@@ -74,10 +74,11 @@ const Post = ({ profile, item, personalData }) => {
   return (
     <Card
       padding={0}
-      className="mb-5 rounded-2xl shadow-lg border border-purple-100"
+      className="mb-5 rounded-2xl shadow-lg border border-purple-100 flex flex-col h-full"
     >
       {/* USER HEADER */}
-      <div className="flex gap-3 p-4 items-center">
+      {/* <div className="flex gap-3 p-4 items-center"> */}
+      <div className="flex gap-3 p-3 sm:p-4 items-center">
         <Link to={`/profile/${item?.user?._id}`} className="w-12 h-12">
           <img
             src={item?.user?.profilePic}
@@ -94,7 +95,8 @@ const Post = ({ profile, item, personalData }) => {
 
       {/* DESCRIPTION */}
       {item?.desc && (
-        <div className="px-4 mb-3 text-gray-800 whitespace-pre-line leading-relaxed">
+        // <div className="px-4 mb-3 text-gray-800 whitespace-pre-line leading-relaxed">
+        <div className="px-3 sm:px-4 mb-3 text-gray-800 whitespace-pre-line leading-relaxed">
           {seeMore ? item?.desc : item?.desc?.slice(0, 120)}
           {hasLongDesc && (
             <span
@@ -111,7 +113,8 @@ const Post = ({ profile, item, personalData }) => {
       {item?.imageLink && (
         <img
           src={item?.imageLink}
-          className="w-full max-h-[450px] object-cover mb-2"
+          // className="w-full max-h-[450px] object-cover mb-2"
+          className="w-full h-[300px] object-cover"
         />
       )}
 
@@ -119,7 +122,8 @@ const Post = ({ profile, item, personalData }) => {
       {item?.videoLink && (
         <video
           controls
-          className="w-full max-h-[450px] bg-black mb-2"
+          // className="w-full max-h-[450px] bg-black mb-2"
+          className="w-full h-[300px] object-cover bg-black"
         >
           <source src={item?.videoLink} />
         </video>
@@ -143,18 +147,21 @@ const Post = ({ profile, item, personalData }) => {
         </div>
       )}
 
-      {/* LIKE + COMMENT COUNT */}
-      <div className="flex justify-between p-4 text-gray-600 text-sm border-t border-purple-100">
-        <div className="flex items-center gap-1">
-          <ThumbUpIcon sx={{ color: "#6366f1", fontSize: 14 }} />
-          {noOfLikes} Likes
+      <div className="mt-auto">
+        {/* LIKE + COMMENT COUNT */}
+        <div className="flex justify-between p-4 text-gray-600 text-sm border-t border-purple-100">
+          <div className="flex items-center gap-1">
+            <ThumbUpIcon sx={{ color: "#6366f1", fontSize: 14 }} />
+            {noOfLikes} Likes
+          </div>
+          <div>{item?.comments} Comments</div>
         </div>
-        <div>{item?.comments} Comments</div>
       </div>
 
       {/* ACTION BUTTONS */}
       {!profile && (
-        <div className="flex border-t border-purple-100">
+        // <div className="flex border-t border-purple-100">
+        <div className="flex flex-wrap border-t border-purple-100 text-sm sm:text-base">
           <ActionButton
             onClick={handleLikeFunc}
             icon={
@@ -220,14 +227,14 @@ const Post = ({ profile, item, personalData }) => {
                     </div>
                   </div>
                 </Link>
-                <div className="ml-13 mt-1.5 font-semibold text-gray-800">{c.comment}</div>
+                <div className="ml-13 mt-1.5 font-semibold text-gray-800">
+                  {c.comment}
+                </div>
               </div>
             ))}
           </div>
         </div>
       )}
-
-      <ToastContainer />
     </Card>
   );
 };

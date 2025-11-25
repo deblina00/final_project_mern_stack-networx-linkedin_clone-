@@ -32,7 +32,6 @@ const GoogleLoginComp = (props) => {
         <GoogleLogin
           onSuccess={handleOnSucess}
           onError={() => console.log("Google login failed")}
-          width="100%"
           theme="outline"
           shape="pill"
           size="large"

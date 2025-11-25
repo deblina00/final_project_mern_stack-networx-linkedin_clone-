@@ -11,13 +11,12 @@ const UserSchema = new mongoose.Schema(
     curr_location: { type: String, default: "" },
     profilePic: {
       type: String,
-      default:
-        "https://static-cse.canva.com/blob/2196698/1600w-HBwnRqn0b34.jpg",
+      default: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
     },
     cover_pic: {
       type: String,
       default:
-        "https://img.freepik.com/free-photo/flat-lay-workstation-with-copy-space-laptop_23-2148430879.jpg?semt=ais_hybrid&w=740&q=80",
+        "https://thingscareerrelated.com/wp-content/uploads/2021/10/default-background-image.png",
     },
     about: { type: String, default: "" },
     skills: { type: [String], default: [] },

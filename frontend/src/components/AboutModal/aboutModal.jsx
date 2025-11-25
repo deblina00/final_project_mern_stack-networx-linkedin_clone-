@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -50,31 +51,33 @@ const AboutModal = ({ handleEditFunc, selfData }) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl p-6 space-y-6 w-full">
+    <div className="bg-white rounded-2xl p-4 sm:p-6 space-y-6 w-full max-w-xl mx-auto max-h-[80vh] overflow-y-auto">
       {/* ABOUT */}
-      <div className="space-y-2">
-        <label className="font-medium text-gray-700">About</label>
+      <div className="space-y-1">
+        <label className="font-medium text-gray-700 text-sm sm:text-base">
+          About
+        </label>
         <textarea
           value={data.about}
           onChange={(e) => onChangeHandle(e, "about")}
-          className="w-full p-3 border border-purple-400 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+          className="w-full p-3 border border-purple-400 rounded-lg text-sm sm:text-base focus:ring-2 focus:ring-purple-500 outline-none"
           rows={4}
           placeholder="Write something about yourself..."
         ></textarea>
       </div>
 
       {/* SKILLS */}
-      <div className="space-y-2">
-        <label className="font-medium text-gray-700">
+      <div className="space-y-1">
+        <label className="font-medium text-gray-700 text-sm sm:text-base">
           Skills{" "}
-          <span className="text-gray-400 text-sm">(separate with commas)</span>
+          <span className="text-gray-400 text-xs">(comma separated)</span>
         </label>
         <textarea
           value={data.skillInp}
           onChange={(e) => onChangeHandle(e, "skillInp")}
-          className="w-full p-3 border border-purple-400 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
+          className="w-full p-3 border border-purple-400 rounded-lg text-sm sm:text-base focus:ring-2 focus:ring-purple-500 outline-none"
           rows={3}
-          placeholder="React, TailwindCSS, JavaScript..."
+          placeholder="React, JavaScript, TailwindCSS..."
         ></textarea>
       </div>
 
@@ -82,7 +85,7 @@ const AboutModal = ({ handleEditFunc, selfData }) => {
       <div className="space-y-3">
         <label
           htmlFor="resumeUpload"
-          className="inline-block px-4 py-2 bg-purple-600 text-white rounded-lg cursor-pointer hover:bg-purple-700 transition"
+          className="inline-block px-4 py-2 bg-purple-600 text-white rounded-lg cursor-pointer hover:bg-purple-700 transition text-sm sm:text-base"
         >
           Upload Resume
         </label>
@@ -94,15 +97,13 @@ const AboutModal = ({ handleEditFunc, selfData }) => {
           id="resumeUpload"
         />
 
-        {/* Resume Preview */}
         {loading ? (
           <p className="text-sm text-gray-500">Uploading...</p>
         ) : data.resume ? (
-          <div className="p-3 bg-gray-50 border border-purple-400 rounded-lg text-sm break-all">
+          <div className="p-3 bg-gray-50 border border-purple-400 rounded-lg text-xs sm:text-sm break-all">
             <a
               href={data.resume}
               target="_blank"
-              rel="noopener noreferrer"
               className="text-purple-600 underline"
             >
               View Uploaded Resume
@@ -115,7 +116,7 @@ const AboutModal = ({ handleEditFunc, selfData }) => {
       <div className="flex justify-end">
         <button
           onClick={handleOnSave}
-          className="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl transition shadow-sm"
+          className="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl transition text-sm sm:text-base"
         >
           Save
         </button>
